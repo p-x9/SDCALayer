@@ -16,6 +16,6 @@ class JCGColor: ObjectConvertiblyCodable {
 
     func converted() -> CGColor? {
         guard let code else { return nil }
-        CGColor.color(rgb: code)
+        return CGColor.color(rgb: code)
     }
 }
