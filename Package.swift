@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "JSONCALayer",
+    platforms: [
+        .iOS(.v13)
+    ],
     products: [
         .library(
             name: "JSONCALayer",

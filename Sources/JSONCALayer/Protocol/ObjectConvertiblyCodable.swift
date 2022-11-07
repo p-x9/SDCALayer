@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ObjectConvertiblyCodable: Codable {
-    associatedtype Target: AnyObject
+    associatedtype Target
 
     func applyProperties(to layer: Target)
     func converted() -> Target?
