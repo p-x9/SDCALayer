@@ -26,7 +26,12 @@ class JCALayer: CALayerConvertible, Codable {
          \.backgroundColor: .init(\.backgroundColor),
          \.cornerRadius: .init(\.cornerRadius),
          \.borderWidth: .init(\.borderWidth),
-         \.borderColor: .init(\.borderColor)
+         \.borderColor: .init(\.borderColor),
+         \.opacity: .init(\.opacity),
+         \.shadowColor: .init(\.shadowColor),
+         \.shadowOpacity: .init(\.shadowOpacity),
+         \.shadowOffset: .init(\.shadowOffset),
+         \.cornerRadius: .init(\.shadowRadius)
     ]
 
     var bounds: CGRect?
