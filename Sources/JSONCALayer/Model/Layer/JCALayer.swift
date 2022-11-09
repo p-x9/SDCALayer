@@ -31,7 +31,7 @@ class JCALayer: CALayerConvertible, Codable {
          \.shadowColor: .init(\.shadowColor),
          \.shadowOpacity: .init(\.shadowOpacity),
          \.shadowOffset: .init(\.shadowOffset),
-         \.cornerRadius: .init(\.shadowRadius)
+         \.shadowRadius: .init(\.shadowRadius)
     ]
 
     var bounds: CGRect?
@@ -44,9 +44,9 @@ class JCALayer: CALayerConvertible, Codable {
     var frame: CGRect?
     var isHidden: Bool?
 
-    var sublayers: [JCALayer]?
+    var sublayers: [JSONCALayer]?
 
-    var mask: JCALayer?
+    var mask: JSONCALayer?
     var masksToBounds: Bool?
 
     var isOpaque: Bool?
@@ -76,6 +76,11 @@ class JCALayer: CALayerConvertible, Codable {
             }
             applier.apply(value, layer)
         }
+
+        sublayers?.compactMap { $0.convertToLayer() }
+            .forEach {
+                layer.addSublayer($0)
+            }
     }
 
     func convertToLayer() -> CALayer? {

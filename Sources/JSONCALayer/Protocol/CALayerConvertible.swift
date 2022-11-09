@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol CALayerConvertible: ObjectConvertiblyCodable {
+public protocol CALayerConvertible: ObjectConvertiblyCodable {
     func convertToLayer() -> Target?
 }
 
-extension CALayerConvertible {
+public extension CALayerConvertible {
     func converted() -> Target? {
         self.convertToLayer()
     }
