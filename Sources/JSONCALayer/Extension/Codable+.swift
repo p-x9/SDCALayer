@@ -33,6 +33,6 @@ extension Decodable {
         guard let data = jsonString.data(using: .utf8) else {
             return nil
         }
-        return try! Self.jsonDecoder.decode(Self.self, from: data)
+        return try? Self.jsonDecoder.decode(Self.self, from: data)
     }
 }

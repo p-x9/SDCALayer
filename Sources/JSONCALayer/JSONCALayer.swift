@@ -53,6 +53,7 @@ public class JSONCALayer: CALayerConvertible {
 
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+
         `class` = try container.decodeIfPresent(String.self, forKey: .class)
         guard let layerClass = Self.getLayerClass(from: `class`) as? any CALayerConvertible.Type else {
             return

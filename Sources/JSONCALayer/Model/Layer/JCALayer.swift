@@ -117,7 +117,8 @@ public class JCALayer: CALayerConvertible, Codable {
             var value = target[keyPath: keyPath]
             switch value {
             case let v as (any IndirectlyCodable):
-                value = v.codable()
+                guard let codable = v.codable() else { return }
+                value = codable
             default:
                 break
             }
