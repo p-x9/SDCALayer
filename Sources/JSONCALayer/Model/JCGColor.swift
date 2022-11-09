@@ -9,12 +9,20 @@
 import Foundation
 import QuartzCore
 
-class JCGColor: ObjectConvertiblyCodable {
-    typealias Target = CGColor
+public class JCGColor: ObjectConvertiblyCodable {
+    public typealias Target = CGColor
 
     let code: String?
 
-    func converted() -> CGColor? {
+    init(code: String) {
+        self.code = code
+    }
+
+    public required init(with object: CGColor) {
+        code = object.rgbString
+    }
+
+    public func converted() -> CGColor? {
         guard let code else { return nil }
         return CGColor.color(rgb: code)
     }

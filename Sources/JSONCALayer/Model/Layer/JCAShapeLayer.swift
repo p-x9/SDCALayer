@@ -30,6 +30,20 @@ class JCAShapeLayer: JCALayer {
          \.lineDashPhase: .init(\.lineDashPhase)
     ]
 
+    static private let reversePropertyMap: [PartialKeyPath<CAShapeLayer>: ReferenceWritableKeyPathValueApplier<JCAShapeLayer>] = [
+        \.path: .init(\.path),
+         \.fillColor: .init(\.fillColor),
+         \.fillRule: .init(\.fillRule),
+         \.strokeColor: .init(\.strokeColor),
+         \.strokeStart: .init(\.strokeStart),
+         \.strokeEnd: .init(\.strokeEnd),
+         \.lineWidth: .init(\.lineWidth),
+         \.miterLimit: .init(\.miterLimit),
+         \.lineCap: .init(\.lineCap),
+         \.lineJoin: .init(\.lineJoin),
+         \.lineDashPhase: .init(\.lineDashPhase)
+    ]
+
     var path: JCGPath?
 
     var fillColor: JCGColor?
@@ -50,6 +64,10 @@ class JCAShapeLayer: JCALayer {
     var lineDashPhase: CGFloat?
 
     var lineDashPattern: [Double]?
+
+    override init() {
+        super.init()
+    }
 
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
@@ -75,6 +93,12 @@ class JCAShapeLayer: JCALayer {
         lineDashPhase = try container.decodeIfPresent(CGFloat.self, forKey: .lineDashPhase)
 
         lineDashPattern = try container.decodeIfPresent([Double].self, forKey: .lineDashPattern)
+    }
+
+    public required convenience init(with object: CALayer) {
+        self.init()
+
+        reverseApplyProperties(with: object)
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -120,6 +144,25 @@ class JCAShapeLayer: JCALayer {
         shapeLayer.lineDashPattern = lineDashPattern?.map { NSNumber(floatLiteral: $0) }
     }
 
+    override func reverseApplyProperties(with target: CALayer) {
+        super.reverseApplyProperties(with: target)
+
+        guard let target = target as? CAShapeLayer else { return }
+
+        Self.reversePropertyMap.forEach { keyPath, applier in
+            var value = target[keyPath: keyPath]
+            switch value {
+            case let v as (any IndirectlyCodable):
+                value = v.codable()
+            default:
+                break
+            }
+            applier.apply(value, self)
+        }
+
+        self.lineDashPattern = target.lineDashPattern?.map { $0.doubleValue }
+    }
+
     override func convertToLayer() -> CALayer? {
         let layer = CAShapeLayer()
 
@@ -129,34 +172,46 @@ class JCAShapeLayer: JCALayer {
     }
 }
 
-class JCAShapeLayerFillRule: ObjectConvertiblyCodable {
-    typealias Target = CAShapeLayerFillRule
+public class JCAShapeLayerFillRule: ObjectConvertiblyCodable {
+    public typealias Target = CAShapeLayerFillRule
 
     var rawValue: String?
 
-    func converted() -> CAShapeLayerFillRule? {
+    required public init(with object: CAShapeLayerFillRule) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> CAShapeLayerFillRule? {
         guard let rawValue else { return nil }
         return .init(rawValue: rawValue)
     }
 }
 
-class JCAShapeLayerLineCap: ObjectConvertiblyCodable {
-    typealias Target = CAShapeLayerLineCap
+public class JCAShapeLayerLineCap: ObjectConvertiblyCodable {
+    public typealias Target = CAShapeLayerLineCap
 
     var rawValue: String?
 
-    func converted() -> CAShapeLayerLineCap? {
+    required public init(with object: CAShapeLayerLineCap) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> CAShapeLayerLineCap? {
         guard let rawValue else { return nil }
         return .init(rawValue: rawValue)
     }
 }
 
-class JCAShapeLayerLineJoin: ObjectConvertiblyCodable {
-    typealias Target = CAShapeLayerLineJoin
+public class JCAShapeLayerLineJoin: ObjectConvertiblyCodable {
+    public typealias Target = CAShapeLayerLineJoin
 
     var rawValue: String?
 
-    func converted() -> CAShapeLayerLineJoin? {
+    required public init(with object: CAShapeLayerLineJoin) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> CAShapeLayerLineJoin? {
         guard let rawValue else { return nil }
         return .init(rawValue: rawValue)
     }

@@ -9,8 +9,8 @@
 import Foundation
 import QuartzCore
 
-class JCALayer: CALayerConvertible, Codable {
-    typealias Target = CALayer
+public class JCALayer: CALayerConvertible, Codable {
+    public typealias Target = CALayer
 
     static private let propertyMap: [PartialKeyPath<JCALayer>: ReferenceWritableKeyPathValueApplier<CALayer>] = [
         \.bounds: .init(\.bounds),
@@ -32,6 +32,29 @@ class JCALayer: CALayerConvertible, Codable {
          \.shadowOpacity: .init(\.shadowOpacity),
          \.shadowOffset: .init(\.shadowOffset),
          \.shadowRadius: .init(\.shadowRadius)
+    ]
+
+    static private let reversePropertyMap: [PartialKeyPath<CALayer>: ReferenceWritableKeyPathValueApplier<JCALayer>] = [
+        \.bounds: .init(\.bounds),
+         \.position: .init(\.position),
+         \.zPosition: .init(\.zPosition),
+         \.anchorPoint: .init(\.anchorPoint),
+         \.anchorPointZ: .init(\.anchorPointZ),
+         \.frame: .init(\.frame),
+         \.isHidden: .init(\.isHidden),
+         \.mask: .init(\.mask),
+         \.masksToBounds: .init(\.masksToBounds),
+         \.isOpaque: .init(\.isOpaque),
+         \.backgroundColor: .init(\.backgroundColor),
+         \.cornerRadius: .init(\.cornerRadius),
+         \.borderWidth: .init(\.borderWidth),
+         \.borderColor: .init(\.borderColor),
+         \.opacity: .init(\.opacity),
+         \.shadowColor: .init(\.shadowColor),
+         \.shadowOpacity: .init(\.shadowOpacity),
+         \.shadowOffset: .init(\.shadowOffset),
+         \.shadowRadius: .init(\.shadowRadius),
+         \.sublayers: .init(\.sublayers)
     ]
 
     var bounds: CGRect?
@@ -65,9 +88,15 @@ class JCALayer: CALayerConvertible, Codable {
     var shadowOffset: CGSize?
     var shadowRadius: CGFloat?
 
-    init() {}
+    public init() {}
 
-    func applyProperties(to layer: CALayer) {
+    public required convenience init(with object: CALayer) {
+        self.init()
+
+        reverseApplyProperties(with: object)
+    }
+
+    public func applyProperties(to layer: CALayer) {
         Self.propertyMap.forEach { keyPath, applier in
             var value = self[keyPath: keyPath]
             if let convertible = value as? (any ObjectConvertiblyCodable),
@@ -83,7 +112,25 @@ class JCALayer: CALayerConvertible, Codable {
             }
     }
 
-    func convertToLayer() -> CALayer? {
+    public func reverseApplyProperties(with target: CALayer) {
+        Self.reversePropertyMap.forEach { keyPath, applier in
+            var value = target[keyPath: keyPath]
+            switch value {
+            case let v as (any IndirectlyCodable):
+                value = v.codable()
+            default:
+                break
+            }
+            applier.apply(value, self)
+        }
+
+        self.mask = JSONCALayer(model: target.mask?.codable())
+        self.sublayers = target.sublayers?.compactMap {
+            JSONCALayer(model: $0.codable())
+        }
+    }
+
+    public func convertToLayer() -> CALayer? {
         let layer = CALayer()
 
         self.applyProperties(to: layer)

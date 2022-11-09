@@ -9,8 +9,8 @@
 import Foundation
 
 
-protocol IndirectlyCodable {
+public protocol IndirectlyCodable {
     associatedtype Target: ObjectConvertiblyCodable
 
-    func codable() -> Target
+    func codable() -> Target?
 }

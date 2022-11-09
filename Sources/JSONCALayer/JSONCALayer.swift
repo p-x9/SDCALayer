@@ -34,6 +34,23 @@ public class JSONCALayer: CALayerConvertible {
         JSONCALayer.value(from: json)
     }
 
+    init?(model: (any CALayerConvertible)?) {
+        guard let model else { return nil }
+        
+        self.class = String("\(type(of: model))".dropFirst())
+        self.layerModel = model
+    }
+
+    init(class: String?, model: any CALayerConvertible) {
+        self.class = `class`
+        self.layerModel = model
+    }
+
+    // dummy
+    public required convenience init(with object: CALayer) {
+        self.init(class: "\(type(of: object))", model: JCALayer(with: object))
+    }
+
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         `class` = try container.decodeIfPresent(String.self, forKey: .class)

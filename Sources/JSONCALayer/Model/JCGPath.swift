@@ -17,6 +17,15 @@ class JCGPath: ObjectConvertiblyCodable {
 
     var bezierPath: UIBezierPath?
 
+    init(bezierPath: UIBezierPath?) {
+        self.bezierPath = bezierPath
+    }
+
+    required convenience init(with object: CGPath) {
+        let bezierPath = UIBezierPath(cgPath: object)
+        self.init(bezierPath: bezierPath)
+    }
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
