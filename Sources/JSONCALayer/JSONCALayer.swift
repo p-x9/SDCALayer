@@ -18,7 +18,7 @@ public class JSONCALayer: CALayerConvertible {
     var `class`: String?
     public var layerModel: (any CALayerConvertible)?
 
-    static func getLayerClass(from className: String?) -> Codable.Type? {
+    static func layerModelClass(for className: String?) -> Codable.Type? {
         guard let className,
               let layerClass = NSClassFromString(className) as? any IndirectlyCodable.Type,
               let layerModelClass = NSClassFromString(layerClass.codableTypeName) as? any Codable.Type else {
@@ -52,7 +52,7 @@ public class JSONCALayer: CALayerConvertible {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         `class` = try container.decodeIfPresent(String.self, forKey: .class)
-        guard let layerClass = Self.getLayerClass(from: `class`) as? any CALayerConvertible.Type else {
+        guard let layerClass = Self.layerModelClass(for: `class`) as? any CALayerConvertible.Type else {
             return
         }
 
