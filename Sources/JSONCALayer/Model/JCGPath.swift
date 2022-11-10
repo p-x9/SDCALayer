@@ -8,8 +8,8 @@
 
 import UIKit
 
-class JCGPath: ObjectConvertiblyCodable {
-    typealias Target = CGPath
+public class JCGPath: ObjectConvertiblyCodable {
+    public typealias Target = CGPath
 
     private enum CodingKeys: String, CodingKey {
         case bezierPath
@@ -21,19 +21,19 @@ class JCGPath: ObjectConvertiblyCodable {
         self.bezierPath = bezierPath
     }
 
-    required convenience init(with object: CGPath) {
+    required convenience public init(with object: CGPath) {
         let bezierPath = UIBezierPath(cgPath: object)
         self.init(bezierPath: bezierPath)
     }
 
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         let data = try container.decode(Data.self, forKey: .bezierPath)
         bezierPath = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIBezierPath.self, from: data)
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         guard let bezierPath else { return }
@@ -41,7 +41,7 @@ class JCGPath: ObjectConvertiblyCodable {
         try container.encode(data, forKey: .bezierPath)
     }
 
-    func converted() -> CGPath? {
+    public func converted() -> CGPath? {
         bezierPath?.cgPath
     }
 }
