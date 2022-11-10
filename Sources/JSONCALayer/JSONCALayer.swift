@@ -18,16 +18,13 @@ public class JSONCALayer: CALayerConvertible {
     var `class`: String?
     public var layerModel: (any CALayerConvertible)?
 
-    static private var prefix: String {
-        NSStringFromClass(JSONCALayer.self).components(separatedBy: ".")[0]
-    }
-
     static func getLayerClass(from className: String?) -> Codable.Type? {
         guard let className,
-              let layerClass = NSClassFromString(Self.prefix + ".J" + className) as? any CALayerConvertible.Type else {
+              let layerClass = NSClassFromString(className) as? any IndirectlyCodable.Type,
+              let layerModelClass = NSClassFromString(layerClass.codableTypeName) as? any Codable.Type else {
             return nil
         }
-        return layerClass
+        return layerModelClass
     }
 
     public static func load(from json: String) -> JSONCALayer? {
@@ -36,8 +33,8 @@ public class JSONCALayer: CALayerConvertible {
 
     init?(model: (any CALayerConvertible)?) {
         guard let model else { return nil }
-        
-        self.class = String("\(type(of: model))".dropFirst())
+
+        self.class = type(of: model).targetTypeName
         self.layerModel = model
     }
 

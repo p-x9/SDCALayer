@@ -12,6 +12,10 @@ import QuartzCore
 public class JCALayer: CALayerConvertible, Codable {
     public typealias Target = CALayer
 
+    open class var targetTypeName: String {
+        String(reflecting: Target.self)
+    }
+
     static private let propertyMap: [PartialKeyPath<JCALayer>: ReferenceWritableKeyPathValueApplier<CALayer>] = [
         \.bounds: .init(\.bounds),
          \.position: .init(\.position),

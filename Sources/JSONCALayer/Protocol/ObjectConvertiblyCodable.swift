@@ -11,6 +11,8 @@ import Foundation
 public protocol ObjectConvertiblyCodable: Codable {
     associatedtype Target
 
+    static var targetTypeName: String { get }
+
     init(with object: Target)
     func reverseApplyProperties(with target: Target)
 
@@ -19,6 +21,10 @@ public protocol ObjectConvertiblyCodable: Codable {
 }
 
 public extension ObjectConvertiblyCodable {
+    static var targetTypeName: String {
+        String(reflecting: Target.self)
+    }
+
     func reverseApplyProperties(with target: Target) {}
     func applyProperties(to layer: Target) {}
 }

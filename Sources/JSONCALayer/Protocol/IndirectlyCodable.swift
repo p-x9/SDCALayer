@@ -11,7 +11,7 @@ import Foundation
 
 public protocol IndirectlyCodable {
     associatedtype Target: ObjectConvertiblyCodable
-
+    static var codableTypeName: String { get }
     func codable() -> Target?
 }
 
@@ -19,5 +19,11 @@ extension IndirectlyCodable {
     public func codable() -> Target? {
         guard let object = self as? Target.Target else { return nil }
         return .init(with: object)
+    }
+}
+
+extension IndirectlyCodable {
+    public static var codableTypeName: String {
+        String(reflecting: Target.self)
     }
 }

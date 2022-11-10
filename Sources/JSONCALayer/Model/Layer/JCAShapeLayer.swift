@@ -9,11 +9,15 @@
 import Foundation
 import QuartzCore
 
-class JCAShapeLayer: JCALayer {
+public class JCAShapeLayer: JCALayer {
     typealias Target = CAShapeLayer
 
     private enum CodingKeys: String, CodingKey {
         case path, fillColor, fillRule, strokeColor, strokeStart, strokeEnd, lineWidth, miterLimit, lineCap, lineJoin, lineDashPhase, lineDashPattern
+    }
+
+    public override class var targetTypeName: String {
+        String(reflecting: Target.self)
     }
 
     static private let propertyMap: [PartialKeyPath<JCAShapeLayer>: ReferenceWritableKeyPathValueApplier<CAShapeLayer>] = [
@@ -101,7 +105,7 @@ class JCAShapeLayer: JCALayer {
         reverseApplyProperties(with: object)
     }
 
-    override func encode(to encoder: Encoder) throws {
+    public override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
 
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -127,7 +131,7 @@ class JCAShapeLayer: JCALayer {
         try container.encode(lineDashPattern, forKey: .lineDashPattern)
     }
 
-    override func applyProperties(to target: CALayer) {
+    public override func applyProperties(to target: CALayer) {
         super.applyProperties(to: target)
 
         guard let shapeLayer = target as? CAShapeLayer else { return }
@@ -144,7 +148,7 @@ class JCAShapeLayer: JCALayer {
         shapeLayer.lineDashPattern = lineDashPattern?.map { NSNumber(floatLiteral: $0) }
     }
 
-    override func reverseApplyProperties(with target: CALayer) {
+    public override func reverseApplyProperties(with target: CALayer) {
         super.reverseApplyProperties(with: target)
 
         guard let target = target as? CAShapeLayer else { return }
@@ -164,7 +168,7 @@ class JCAShapeLayer: JCALayer {
         self.lineDashPattern = target.lineDashPattern?.map { $0.doubleValue }
     }
 
-    override func convertToLayer() -> CALayer? {
+    public override func convertToLayer() -> CALayer? {
         let layer = CAShapeLayer()
 
         self.applyProperties(to: layer)
