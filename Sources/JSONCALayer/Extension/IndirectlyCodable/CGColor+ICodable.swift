@@ -11,7 +11,7 @@ import QuartzCore
 extension CGColor: IndirectlyCodable {
     public typealias Target = JCGColor
 
-    public func applyProperties(to layer: JCGColor) {}
+    public func applyProperties(to target: JCGColor) {}
 
     public func codable() -> JCGColor? {
         JCGColor(code: self.rgbString)

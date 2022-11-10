@@ -96,19 +96,19 @@ public class JCALayer: CALayerConvertible, Codable {
         reverseApplyProperties(with: object)
     }
 
-    public func applyProperties(to layer: CALayer) {
+    public func applyProperties(to target: CALayer) {
         Self.propertyMap.forEach { keyPath, applier in
             var value = self[keyPath: keyPath]
             if let convertible = value as? (any ObjectConvertiblyCodable),
                let converted = convertible.converted() {
                 value = converted
             }
-            applier.apply(value, layer)
+            applier.apply(value, target)
         }
 
         sublayers?.compactMap { $0.convertToLayer() }
             .forEach {
-                layer.addSublayer($0)
+                target.addSublayer($0)
             }
     }
 

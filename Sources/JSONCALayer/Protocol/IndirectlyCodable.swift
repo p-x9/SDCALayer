@@ -14,3 +14,10 @@ public protocol IndirectlyCodable {
 
     func codable() -> Target?
 }
+
+extension IndirectlyCodable {
+    public func codable() -> Target? {
+        guard let object = self as? Target.Target else { return nil }
+        return .init(with: object)
+    }
+}

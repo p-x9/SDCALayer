@@ -127,10 +127,10 @@ class JCAShapeLayer: JCALayer {
         try container.encode(lineDashPattern, forKey: .lineDashPattern)
     }
 
-    override func applyProperties(to layer: CALayer) {
-        super.applyProperties(to: layer)
+    override func applyProperties(to target: CALayer) {
+        super.applyProperties(to: target)
 
-        guard let shapeLayer = layer as? CAShapeLayer else { return }
+        guard let shapeLayer = target as? CAShapeLayer else { return }
 
         Self.propertyMap.forEach { keyPath, applier in
             var value = self[keyPath: keyPath]

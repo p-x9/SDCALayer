@@ -14,7 +14,7 @@ public protocol ObjectConvertiblyCodable: Codable {
     init(with object: Target)
     func reverseApplyProperties(with target: Target)
 
-    func applyProperties(to layer: Target)
+    func applyProperties(to target: Target)
     func converted() -> Target?
 }
 
