@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "indirectlycodable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/p-x9/IndirectlyCodable.git",
+      "state" : {
+        "revision" : "81bfc339dde53a3739f82517dbef0e4cac1d9cc3",
+        "version" : "0.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}

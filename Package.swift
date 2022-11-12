@@ -14,11 +14,14 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/p-x9/IndirectlyCodable.git", exact: "0.0.1")
     ],
     targets: [
         .target(
             name: "JSONCALayer",
-            dependencies: []
+            dependencies: [
+                .product(name: "IndirectlyCodable", package: "IndirectlyCodable")
+            ]
         ),
         .testTarget(
             name: "JSONCALayerTests",
