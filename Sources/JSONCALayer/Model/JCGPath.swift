@@ -41,9 +41,9 @@ public class JCGPath: ObjectConvertiblyCodable {
                 case .addLineToPoint:
                     path.addLine(to: points[0])
                 case .addQuadCurveToPoint:
-                    path.addQuadCurve(to: points[0], control: points[1])
+                    path.addQuadCurve(to: points[1], control: points[0])
                 case .addCurveToPoint:
-                    path.addCurve(to: points[0], control1: points[1], control2: points[2])
+                    path.addCurve(to: points[2], control1: points[0], control2: points[1])
                 case .closeSubpath:
                     path.closeSubpath()
                 case .none:
@@ -69,10 +69,15 @@ public struct JCGPathElement: Codable {
 
 public extension CGPath {
     var jelements: [JCGPathElement] {
-        elements.map {
-            let type = $0.type
-            let points = Array(UnsafeBufferPointer(start: $0.points, count: type.numberOfPoints))
-            return .init(type: type.string, points: points)
+        var elements = [JCGPathElement]()
+        forEach { element in
+            let type = element.type
+            var points = [CGPoint]()
+            for i in 0..<type.numberOfPoints {
+                points.append(element.points[i])
+            }
+            elements.append(.init(type: type.string, points: points))
         }
+        return elements
     }
 }

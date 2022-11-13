@@ -9,13 +9,16 @@
 import QuartzCore
 
 extension CGPath {
-    public var elements: [CGPathElement] {
-        var elements = [CGPathElement]()
-        self.applyWithBlock { elementPtr in
-            let element = elementPtr.pointee
-            elements.append(element)
+    // ref: https://stackoverflow.com/questions/12992462/how-to-get-the-cgpoints-of-a-cgpath
+    func forEach(body: @convention(block) @escaping (CGPathElement) -> Void) {
+        typealias Body = @convention(block) (CGPathElement) -> Void
+
+        func callback(info: UnsafeMutableRawPointer?, element: UnsafePointer<CGPathElement>) {
+            let body = unsafeBitCast(info, to: Body.self)
+            body(element.pointee)
         }
-        return elements
+        let unsafeBody = unsafeBitCast(body, to: UnsafeMutableRawPointer.self)
+        self.apply(info: unsafeBody, function: callback as CGPathApplierFunction)
     }
 }
 
