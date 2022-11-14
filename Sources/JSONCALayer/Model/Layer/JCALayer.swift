@@ -8,6 +8,7 @@
 
 import Foundation
 import QuartzCore
+import KeyPathValue
 
 public class JCALayer: CALayerConvertible, Codable {
     public typealias Target = CALayer

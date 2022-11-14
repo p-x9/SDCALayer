@@ -8,6 +8,7 @@
 
 import Foundation
 import QuartzCore
+import KeyPathValue
 
 public class JCAShapeLayer: JCALayer {
     typealias Target = CAShapeLayer

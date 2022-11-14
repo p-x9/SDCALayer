@@ -9,6 +9,7 @@
 import Foundation
 import QuartzCore
 import CoreText
+import KeyPathValue
 
 public class JCATextLayer: JCALayer {
     typealias Target = CATextLayer

@@ -8,6 +8,7 @@
 
 import Foundation
 import QuartzCore
+import KeyPathValue
 
 public class JCAGradientLayer: JCALayer {
     public typealias Target = CAGradientLayer
