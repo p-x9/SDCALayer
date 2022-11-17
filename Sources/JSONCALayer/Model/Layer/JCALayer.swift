@@ -88,58 +88,58 @@ public class JCALayer: CALayerConvertible, Codable {
          \.sublayers: .init(\.sublayers)
     ]
 
-    var bounds: CGRect?
-    var position: CGPoint?
+    public var bounds: CGRect?
+    public var position: CGPoint?
 
-    var zPosition: CGFloat?
-    var anchorPoint: CGPoint?
-    var anchorPointZ: CGFloat?
+    public var zPosition: CGFloat?
+    public var anchorPoint: CGPoint?
+    public var anchorPointZ: CGFloat?
 
-    var transform: CATransform3D?
+    public var transform: CATransform3D?
 
-    var frame: CGRect?
-    var isHidden: Bool?
+    public var frame: CGRect?
+    public var isHidden: Bool?
 
-    var isDoubleSided: Bool?
-    var isGeometryFlipped: Bool?
+    public var isDoubleSided: Bool?
+    public var isGeometryFlipped: Bool?
 
-    var sublayers: [JSONCALayer]?
+    public var sublayers: [JSONCALayer]?
 
-    var sublayerTransform: CATransform3D?
+    public var sublayerTransform: CATransform3D?
 
-    var mask: JSONCALayer?
-    var masksToBounds: Bool?
+    public var mask: JSONCALayer?
+    public var masksToBounds: Bool?
 
-    var isOpaque: Bool?
+    public var isOpaque: Bool?
 
-    var drawsAsynchronously: Bool?
+    public var drawsAsynchronously: Bool?
 
-    var allowsEdgeAntialiasing: Bool?
+    public var allowsEdgeAntialiasing: Bool?
 
-    var backgroundColor: JCGColor?
+    public var backgroundColor: JCGColor?
 
-    var cornerRadius: CGFloat?
-    var maskedCorners: JCACornerMask?
+    public var cornerRadius: CGFloat?
+    public var maskedCorners: JCACornerMask?
 
     @available(iOS 13.0, *)
-    open var cornerCurve: JCALayerCornerCurve?
+    public var cornerCurve: JCALayerCornerCurve?
 
-    var borderWidth: CGFloat?
-    var borderColor: JCGColor?
+    public var borderWidth: CGFloat?
+    public var borderColor: JCGColor?
 
-    var opacity: Float?
-    var allowsGroupOpacity: Bool?
+    public var opacity: Float?
+    public var allowsGroupOpacity: Bool?
 
-    var shouldRasterize: Bool?
-    var rasterizationScale: CGFloat?
+    public var shouldRasterize: Bool?
+    public var rasterizationScale: CGFloat?
 
-    var shadowColor: JCGColor?
-    var shadowOpacity: Float?
-    var shadowOffset: CGSize?
-    var shadowRadius: CGFloat?
-    var shadowPath: JCGPath?
+    public var shadowColor: JCGColor?
+    public var shadowOpacity: Float?
+    public var shadowOffset: CGSize?
+    public var shadowRadius: CGFloat?
+    public var shadowPath: JCGPath?
 
-    var name: String?
+    public var name: String?
 
     public init() {}
 
@@ -196,7 +196,7 @@ public class JCALayer: CALayerConvertible, Codable {
 public class JCALayerCornerCurve: ObjectConvertiblyCodable {
     public typealias Target = CALayerCornerCurve
 
-    var rawValue: String?
+    public var rawValue: String?
 
     required public init(with object: CALayerCornerCurve) {
         rawValue = object.rawValue
@@ -212,7 +212,7 @@ public class JCALayerCornerCurve: ObjectConvertiblyCodable {
 public class JCACornerMask: ObjectConvertiblyCodable {
     public typealias Target = CACornerMask
 
-    var rawValue: UInt?
+    public var rawValue: UInt?
 
     required public init(with object: CACornerMask) {
         rawValue = object.rawValue

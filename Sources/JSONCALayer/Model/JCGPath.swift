@@ -11,7 +11,7 @@ import UIKit
 public class JCGPath: ObjectConvertiblyCodable {
     public typealias Target = CGPath
 
-    var pathElements: [JCGPathElement]?
+    public var pathElements: [JCGPathElement]?
 
     init(pathElements: [JCGPathElement]?) {
         self.pathElements = pathElements

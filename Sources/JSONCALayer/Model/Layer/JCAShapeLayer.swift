@@ -49,26 +49,26 @@ public class JCAShapeLayer: JCALayer {
          \.lineDashPhase: .init(\.lineDashPhase)
     ]
 
-    var path: JCGPath?
+    public var path: JCGPath?
 
-    var fillColor: JCGColor?
+    public var fillColor: JCGColor?
 
-    var fillRule: JCAShapeLayerFillRule?
+    public var fillRule: JCAShapeLayerFillRule?
 
-    var strokeColor: JCGColor?
+    public var strokeColor: JCGColor?
 
-    var strokeStart: CGFloat?
-    var strokeEnd: CGFloat?
+    public var strokeStart: CGFloat?
+    public var strokeEnd: CGFloat?
 
-    var lineWidth: CGFloat?
-    var miterLimit: CGFloat?
+    public var lineWidth: CGFloat?
+    public var miterLimit: CGFloat?
 
-    var lineCap: JCAShapeLayerLineCap?
-    var lineJoin: JCAShapeLayerLineJoin?
+    public var lineCap: JCAShapeLayerLineCap?
+    public var lineJoin: JCAShapeLayerLineJoin?
 
-    var lineDashPhase: CGFloat?
+    public var lineDashPhase: CGFloat?
 
-    var lineDashPattern: [Double]?
+    public var lineDashPattern: [Double]?
 
     override init() {
         super.init()
@@ -181,7 +181,7 @@ public class JCAShapeLayer: JCALayer {
 public class JCAShapeLayerFillRule: ObjectConvertiblyCodable {
     public typealias Target = CAShapeLayerFillRule
 
-    var rawValue: String?
+    public var rawValue: String?
 
     required public init(with object: CAShapeLayerFillRule) {
         rawValue = object.rawValue
@@ -196,7 +196,7 @@ public class JCAShapeLayerFillRule: ObjectConvertiblyCodable {
 public class JCAShapeLayerLineCap: ObjectConvertiblyCodable {
     public typealias Target = CAShapeLayerLineCap
 
-    var rawValue: String?
+    public var rawValue: String?
 
     required public init(with object: CAShapeLayerLineCap) {
         rawValue = object.rawValue
@@ -211,7 +211,7 @@ public class JCAShapeLayerLineCap: ObjectConvertiblyCodable {
 public class JCAShapeLayerLineJoin: ObjectConvertiblyCodable {
     public typealias Target = CAShapeLayerLineJoin
 
-    var rawValue: String?
+    public var rawValue: String?
 
     required public init(with object: CAShapeLayerLineJoin) {
         rawValue = object.rawValue

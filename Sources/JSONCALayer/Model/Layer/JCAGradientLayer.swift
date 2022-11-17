@@ -35,13 +35,13 @@ public class JCAGradientLayer: JCALayer {
          \.type: .init(\.type)
     ]
 
-    var colors: [JCGColor]?
-    var locations: [Double]?
+    public var colors: [JCGColor]?
+    public var locations: [Double]?
 
-    var startPoint: CGPoint?
-    var endPoint: CGPoint?
+    public var startPoint: CGPoint?
+    public var endPoint: CGPoint?
 
-    var type: JCAGradientLayerType?
+    public var type: JCAGradientLayerType?
 
     override init() {
         super.init()
@@ -142,7 +142,7 @@ public class JCAGradientLayer: JCALayer {
 public class JCAGradientLayerType: ObjectConvertiblyCodable {
     public typealias Target = CAGradientLayerType
 
-    var rawValue: String?
+    public var rawValue: String?
 
     required public init(with object: CAGradientLayerType) {
         rawValue = object.rawValue

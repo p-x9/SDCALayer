@@ -15,7 +15,7 @@ public class JSONCALayer: CALayerConvertible {
         case `class`, layerModel
     }
 
-    var `class`: String?
+    public var `class`: String?
     public var layerModel: (any CALayerConvertible)?
 
     static func layerModelClass(for className: String?) -> Codable.Type? {
@@ -31,14 +31,14 @@ public class JSONCALayer: CALayerConvertible {
         JSONCALayer.value(from: json)
     }
 
-    init?(model: (any CALayerConvertible)?) {
+    public init?(model: (any CALayerConvertible)?) {
         guard let model else { return nil }
 
         self.class = type(of: model).targetTypeName
         self.layerModel = model
     }
 
-    init(class: String?, model: any CALayerConvertible) {
+    public init(class: String?, model: any CALayerConvertible) {
         self.class = `class`
         self.layerModel = model
     }

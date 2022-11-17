@@ -21,7 +21,7 @@ public class JCAScrollLayer: JCALayer {
         String(reflecting: Target.self)
     }
 
-    var scrollMode: JCAScrollLayerScrollMode?
+    public var scrollMode: JCAScrollLayerScrollMode?
 
     override init() {
         super.init()
@@ -79,7 +79,7 @@ public class JCAScrollLayer: JCALayer {
 public class JCAScrollLayerScrollMode: ObjectConvertiblyCodable {
     public typealias Target = CAScrollLayerScrollMode
 
-    var rawValue: String?
+    public var rawValue: String?
 
     required public init(with object: CAScrollLayerScrollMode) {
         rawValue = object.rawValue

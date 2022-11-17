@@ -44,21 +44,21 @@ public class JCATextLayer: JCALayer {
          \.allowsFontSubpixelQuantization: .init(\.allowsFontSubpixelQuantization)
     ]
 
-    var string: String?
+    public var string: String?
 
-    var font: String?
+    public var font: String?
 
-    var fontSize: CGFloat?
+    public var fontSize: CGFloat?
 
-    var foregroundColor: JCGColor?
+    public var foregroundColor: JCGColor?
 
-    var isWrapped: Bool?
+    public var isWrapped: Bool?
 
-    var truncationMode: JCATextLayerTruncationMode?
+    public var truncationMode: JCATextLayerTruncationMode?
 
-    var alignmentMode: JCATextLayerAlignmentMode?
+    public var alignmentMode: JCATextLayerAlignmentMode?
 
-    var allowsFontSubpixelQuantization: Bool?
+    public var allowsFontSubpixelQuantization: Bool?
 
     override init() {
         super.init()
@@ -170,7 +170,7 @@ public class JCATextLayer: JCALayer {
 public class JCATextLayerTruncationMode: ObjectConvertiblyCodable {
     public typealias Target = CATextLayerTruncationMode
 
-    var rawValue: String?
+    public var rawValue: String?
 
     required public init(with object: CATextLayerTruncationMode) {
         rawValue = object.rawValue
@@ -185,7 +185,7 @@ public class JCATextLayerTruncationMode: ObjectConvertiblyCodable {
 public class JCATextLayerAlignmentMode: ObjectConvertiblyCodable {
     public typealias Target = CATextLayerAlignmentMode
 
-    var rawValue: String?
+    public var rawValue: String?
 
     required public init(with object: CATextLayerAlignmentMode) {
         rawValue = object.rawValue
