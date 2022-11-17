@@ -23,20 +23,33 @@ public class JCALayer: CALayerConvertible, Codable {
          \.zPosition: .init(\.zPosition),
          \.anchorPoint: .init(\.anchorPoint),
          \.anchorPointZ: .init(\.anchorPointZ),
+         \.transform: .init(\.transform),
          \.frame: .init(\.frame),
          \.isHidden: .init(\.isHidden),
+         \.isDoubleSided: .init(\.isDoubleSided),
+         \.isGeometryFlipped: .init(\.isGeometryFlipped),
+         \.sublayerTransform: .init(\.sublayerTransform),
          \.mask: .init(\.mask),
          \.masksToBounds: .init(\.masksToBounds),
          \.isOpaque: .init(\.isOpaque),
+         \.drawsAsynchronously: .init(\.drawsAsynchronously),
+         \.allowsEdgeAntialiasing: .init(\.allowsEdgeAntialiasing),
          \.backgroundColor: .init(\.backgroundColor),
          \.cornerRadius: .init(\.cornerRadius),
+         \.maskedCorners: .init(\.maskedCorners),
+         \.cornerCurve: .init(\.cornerCurve),
          \.borderWidth: .init(\.borderWidth),
          \.borderColor: .init(\.borderColor),
          \.opacity: .init(\.opacity),
+         \.allowsGroupOpacity: .init(\.allowsGroupOpacity),
+         \.shouldRasterize: .init(\.shouldRasterize),
+         \.rasterizationScale: .init(\.rasterizationScale),
          \.shadowColor: .init(\.shadowColor),
          \.shadowOpacity: .init(\.shadowOpacity),
          \.shadowOffset: .init(\.shadowOffset),
-         \.shadowRadius: .init(\.shadowRadius)
+         \.shadowRadius: .init(\.shadowRadius),
+         \.shadowPath: .init(\.shadowPath),
+         \.name: .init(\.name)
     ]
 
     static private let reversePropertyMap: [PartialKeyPath<CALayer>: ReferenceWritableKeyPathValueApplier<JCALayer>] = [
@@ -45,20 +58,33 @@ public class JCALayer: CALayerConvertible, Codable {
          \.zPosition: .init(\.zPosition),
          \.anchorPoint: .init(\.anchorPoint),
          \.anchorPointZ: .init(\.anchorPointZ),
+         \.transform: .init(\.transform),
          \.frame: .init(\.frame),
          \.isHidden: .init(\.isHidden),
+         \.isDoubleSided: .init(\.isDoubleSided),
+         \.isGeometryFlipped: .init(\.isGeometryFlipped),
+         \.sublayerTransform: .init(\.sublayerTransform),
          \.mask: .init(\.mask),
          \.masksToBounds: .init(\.masksToBounds),
          \.isOpaque: .init(\.isOpaque),
+         \.drawsAsynchronously: .init(\.drawsAsynchronously),
+         \.allowsEdgeAntialiasing: .init(\.allowsEdgeAntialiasing),
          \.backgroundColor: .init(\.backgroundColor),
          \.cornerRadius: .init(\.cornerRadius),
+         \.maskedCorners: .init(\.maskedCorners),
+         \.cornerCurve: .init(\.cornerCurve),
          \.borderWidth: .init(\.borderWidth),
          \.borderColor: .init(\.borderColor),
          \.opacity: .init(\.opacity),
+         \.allowsGroupOpacity: .init(\.allowsGroupOpacity),
+         \.shouldRasterize: .init(\.shouldRasterize),
+         \.rasterizationScale: .init(\.rasterizationScale),
          \.shadowColor: .init(\.shadowColor),
          \.shadowOpacity: .init(\.shadowOpacity),
          \.shadowOffset: .init(\.shadowOffset),
          \.shadowRadius: .init(\.shadowRadius),
+         \.shadowPath: .init(\.shadowPath),
+         \.name: .init(\.name),
          \.sublayers: .init(\.sublayers)
     ]
 
@@ -69,29 +95,51 @@ public class JCALayer: CALayerConvertible, Codable {
     var anchorPoint: CGPoint?
     var anchorPointZ: CGFloat?
 
+    var transform: CATransform3D?
+
     var frame: CGRect?
     var isHidden: Bool?
 
+    var isDoubleSided: Bool?
+    var isGeometryFlipped: Bool?
+
     var sublayers: [JSONCALayer]?
+
+    var sublayerTransform: CATransform3D?
 
     var mask: JSONCALayer?
     var masksToBounds: Bool?
 
     var isOpaque: Bool?
 
+    var drawsAsynchronously: Bool?
+
+    var allowsEdgeAntialiasing: Bool?
+
     var backgroundColor: JCGColor?
 
     var cornerRadius: CGFloat?
+    var maskedCorners: JCACornerMask?
+
+    @available(iOS 13.0, *)
+    open var cornerCurve: JCALayerCornerCurve?
 
     var borderWidth: CGFloat?
     var borderColor: JCGColor?
 
     var opacity: Float?
+    var allowsGroupOpacity: Bool?
+
+    var shouldRasterize: Bool?
+    var rasterizationScale: CGFloat?
 
     var shadowColor: JCGColor?
     var shadowOpacity: Float?
     var shadowOffset: CGSize?
     var shadowRadius: CGFloat?
+    var shadowPath: JCGPath?
+
+    var name: String?
 
     public init() {}
 
@@ -142,5 +190,36 @@ public class JCALayer: CALayerConvertible, Codable {
         self.applyProperties(to: layer)
 
         return layer
+    }
+}
+
+public class JCALayerCornerCurve: ObjectConvertiblyCodable {
+    public typealias Target = CALayerCornerCurve
+
+    var rawValue: String?
+
+    required public init(with object: CALayerCornerCurve) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> CALayerCornerCurve? {
+        guard let rawValue else { return nil }
+        return .init(rawValue: rawValue)
+    }
+}
+
+
+public class JCACornerMask: ObjectConvertiblyCodable {
+    public typealias Target = CACornerMask
+
+    var rawValue: UInt?
+
+    required public init(with object: CACornerMask) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> CACornerMask? {
+        guard let rawValue else { return nil }
+        return .init(rawValue: rawValue)
     }
 }

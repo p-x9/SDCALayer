@@ -24,3 +24,19 @@ extension CALayer: IndirectlyCodable {
         String(reflecting: Target.self)
     }
 }
+
+extension CALayerCornerCurve: IndirectlyCodable {
+    public typealias Target = JCALayerCornerCurve
+
+    public func codable() -> JCALayerCornerCurve? {
+        .init(with: self)
+    }
+}
+
+extension CACornerMask: IndirectlyCodable {
+    public typealias Target = JCACornerMask
+
+    public func codable() -> JCACornerMask? {
+        .init(with: self)
+    }
+}
