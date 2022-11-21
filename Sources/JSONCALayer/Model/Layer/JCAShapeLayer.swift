@@ -21,7 +21,7 @@ public class JCAShapeLayer: JCALayer {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: [PartialKeyPath<JCAShapeLayer>: ReferenceWritableKeyPathValueApplier<CAShapeLayer>] = [
+    static private let propertyMap: PropertyMap<CAShapeLayer, JCAShapeLayer> = [
         \.path: .init(\.path),
          \.fillColor: .init(\.fillColor),
          \.fillRule: .init(\.fillRule),
@@ -35,7 +35,7 @@ public class JCAShapeLayer: JCALayer {
          \.lineDashPhase: .init(\.lineDashPhase)
     ]
 
-    static private let reversePropertyMap: [PartialKeyPath<CAShapeLayer>: ReferenceWritableKeyPathValueApplier<JCAShapeLayer>] = [
+    static private let reversePropertyMap: PropertyMap<JCAShapeLayer, CAShapeLayer> = [
         \.path: .init(\.path),
          \.fillColor: .init(\.fillColor),
          \.fillRule: .init(\.fillRule),
@@ -135,18 +135,11 @@ public class JCAShapeLayer: JCALayer {
     public override func applyProperties(to target: CALayer) {
         super.applyProperties(to: target)
 
-        guard let shapeLayer = target as? CAShapeLayer else { return }
+        guard let target = target as? CAShapeLayer else { return }
 
-        Self.propertyMap.forEach { keyPath, applier in
-            var value = self[keyPath: keyPath]
-            if let convertible = value as? (any ObjectConvertiblyCodable),
-               let converted = convertible.converted() {
-                value = converted
-            }
-            applier.apply(value, shapeLayer)
-        }
+        Self.propertyMap.apply(to: target, from: self)
 
-        shapeLayer.lineDashPattern = lineDashPattern?.map { NSNumber(floatLiteral: $0) }
+        target.lineDashPattern = lineDashPattern?.map { NSNumber(floatLiteral: $0) }
     }
 
     public override func reverseApplyProperties(with target: CALayer) {
@@ -154,17 +147,7 @@ public class JCAShapeLayer: JCALayer {
 
         guard let target = target as? CAShapeLayer else { return }
 
-        Self.reversePropertyMap.forEach { keyPath, applier in
-            var value = target[keyPath: keyPath]
-            switch value {
-            case let v as (any IndirectlyCodable):
-                guard let codable = v.codable() else { return }
-                value = codable
-            default:
-                break
-            }
-            applier.apply(value, self)
-        }
+        Self.reversePropertyMap.apply(to: self, from: target)
 
         self.lineDashPattern = target.lineDashPattern?.map { $0.doubleValue }
     }

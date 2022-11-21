@@ -22,7 +22,7 @@ public class JCATextLayer: JCALayer {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: [PartialKeyPath<JCATextLayer>: ReferenceWritableKeyPathValueApplier<CATextLayer>] = [
+    static private let propertyMap: PropertyMap<CATextLayer, JCATextLayer> = [
         \.string: .init(\.string),
          \.font: .init(\.font),
          \.fontSize: .init(\.fontSize),
@@ -33,7 +33,7 @@ public class JCATextLayer: JCALayer {
          \.allowsFontSubpixelQuantization: .init(\.allowsFontSubpixelQuantization)
     ]
 
-    static private let reversePropertyMap: [PartialKeyPath<CATextLayer>: ReferenceWritableKeyPathValueApplier<JCATextLayer>] = [
+    static private let reversePropertyMap: PropertyMap<JCATextLayer, CATextLayer> = [
         \.string: .init(\.string),
 //         \.font: .init(\.font),
          \.fontSize: .init(\.fontSize),
@@ -115,16 +115,9 @@ public class JCATextLayer: JCALayer {
     public override func applyProperties(to target: CALayer) {
         super.applyProperties(to: target)
 
-        guard let textLayer = target as? CATextLayer else { return }
+        guard let target = target as? CATextLayer else { return }
 
-        Self.propertyMap.forEach { keyPath, applier in
-            var value = self[keyPath: keyPath]
-            if let convertible = value as? (any ObjectConvertiblyCodable),
-               let converted = convertible.converted() {
-                value = converted
-            }
-            applier.apply(value, textLayer)
-        }
+        Self.propertyMap.apply(to: target, from: self)
     }
 
     public override func reverseApplyProperties(with target: CALayer) {
@@ -132,17 +125,7 @@ public class JCATextLayer: JCALayer {
 
         guard let target = target as? CATextLayer else { return }
 
-        Self.reversePropertyMap.forEach { keyPath, applier in
-            var value = target[keyPath: keyPath]
-            switch value {
-            case let v as (any IndirectlyCodable):
-                guard let codable = v.codable() else { return }
-                value = codable
-            default:
-                break
-            }
-            applier.apply(value, self)
-        }
+        Self.reversePropertyMap.apply(to: self, from: target)
 
         if let font = target[keyPath: \.font] {
             switch CFGetTypeID(font) {

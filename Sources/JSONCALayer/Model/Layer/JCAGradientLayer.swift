@@ -21,14 +21,14 @@ public class JCAGradientLayer: JCALayer {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: [PartialKeyPath<JCAGradientLayer>: ReferenceWritableKeyPathValueApplier<CAGradientLayer>] = [
+    static private let propertyMap: PropertyMap<CAGradientLayer, JCAGradientLayer> = [
         \.colors: .init(\.colors),
          \.startPoint: .init(\.startPoint),
          \.endPoint: .init(\.endPoint),
          \.type: .init(\.type)
     ]
 
-    static private let reversePropertyMap: [PartialKeyPath<CAGradientLayer>: ReferenceWritableKeyPathValueApplier<JCAGradientLayer>] = [
+    static private let reversePropertyMap: PropertyMap<JCAGradientLayer, CAGradientLayer> = [
         \.colors: .init(\.colors),
          \.startPoint: .init(\.startPoint),
          \.endPoint: .init(\.endPoint),
@@ -84,28 +84,11 @@ public class JCAGradientLayer: JCALayer {
     public override func applyProperties(to target: CALayer) {
         super.applyProperties(to: target)
 
-        guard let gradientLayer = target as? CAGradientLayer else { return }
+        guard let target = target as? CAGradientLayer else { return }
 
-        Self.propertyMap.forEach { keyPath, applier in
-            var value = self[keyPath: keyPath]
-            if let convertible = value as? (any ObjectConvertiblyCodable),
-               let converted = convertible.converted() {
-                value = converted
-            }
-            switch value {
-            case let v as (any ObjectConvertiblyCodable):
-                guard let object = v.converted() else { return }
-                value = object
-            case let v as [any ObjectConvertiblyCodable]:
-                value = v.compactMap { $0.converted() }
-            default:
-                break
-            }
+        Self.propertyMap.apply(to: target, from: self)
 
-            applier.apply(value, gradientLayer)
-        }
-
-        gradientLayer.locations = locations?.map { NSNumber(floatLiteral: $0) }
+        target.locations = locations?.map { NSNumber(floatLiteral: $0) }
     }
 
     public override func reverseApplyProperties(with target: CALayer) {
@@ -113,19 +96,7 @@ public class JCAGradientLayer: JCALayer {
 
         guard let target = target as? CAGradientLayer else { return }
 
-        Self.reversePropertyMap.forEach { keyPath, applier in
-            var value = target[keyPath: keyPath]
-            switch value {
-            case let v as (any IndirectlyCodable):
-                guard let codable = v.codable() else { return }
-                value = codable
-            case let v as [any IndirectlyCodable]:
-                value = v.compactMap { $0.codable() }
-            default:
-                break
-            }
-            applier.apply(value, self)
-        }
+        Self.reversePropertyMap.apply(to: self, from: target)
 
         self.locations = target.locations?.map { $0.doubleValue }
     }

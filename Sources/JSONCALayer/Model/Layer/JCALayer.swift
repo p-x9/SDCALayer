@@ -17,7 +17,7 @@ public class JCALayer: CALayerConvertible, Codable {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: [PartialKeyPath<JCALayer>: ReferenceWritableKeyPathValueApplier<CALayer>] = [
+    static private let propertyMap: PropertyMap<CALayer, JCALayer> = [
         \.bounds: .init(\.bounds),
          \.position: .init(\.position),
          \.zPosition: .init(\.zPosition),
@@ -52,7 +52,7 @@ public class JCALayer: CALayerConvertible, Codable {
          \.name: .init(\.name)
     ]
 
-    static private let reversePropertyMap: [PartialKeyPath<CALayer>: ReferenceWritableKeyPathValueApplier<JCALayer>] = [
+    static private let reversePropertyMap: PropertyMap<JCALayer, CALayer> = [
         \.bounds: .init(\.bounds),
          \.position: .init(\.position),
          \.zPosition: .init(\.zPosition),
@@ -150,14 +150,7 @@ public class JCALayer: CALayerConvertible, Codable {
     }
 
     public func applyProperties(to target: CALayer) {
-        Self.propertyMap.forEach { keyPath, applier in
-            var value = self[keyPath: keyPath]
-            if let convertible = value as? (any ObjectConvertiblyCodable),
-               let converted = convertible.converted() {
-                value = converted
-            }
-            applier.apply(value, target)
-        }
+        Self.propertyMap.apply(to: target, from: self)
 
         sublayers?.compactMap { $0.convertToLayer() }
             .forEach {
@@ -166,17 +159,7 @@ public class JCALayer: CALayerConvertible, Codable {
     }
 
     public func reverseApplyProperties(with target: CALayer) {
-        Self.reversePropertyMap.forEach { keyPath, applier in
-            var value = target[keyPath: keyPath]
-            switch value {
-            case let v as (any IndirectlyCodable):
-                guard let codable = v.codable() else { return }
-                value = codable
-            default:
-                break
-            }
-            applier.apply(value, self)
-        }
+        Self.reversePropertyMap.apply(to: self, from: target)
 
         self.mask = JSONCALayer(model: target.mask?.codable())
         self.sublayers = target.sublayers?.compactMap {
