@@ -6,7 +6,7 @@
 //  
 //
 
-import UIKit
+import CoreGraphics
 
 public class JCGPath: ObjectConvertiblyCodable {
     public typealias Target = CGPath
