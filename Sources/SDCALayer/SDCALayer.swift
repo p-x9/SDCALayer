@@ -1,5 +1,5 @@
 //
-//  JSONCALayer.swift
+//  SDCALayer.swift
 //  
 //
 //  Created by p-x9 on 2022/11/07.
@@ -8,7 +8,7 @@
 
 import QuartzCore
 
-public class JSONCALayer: CALayerConvertible {
+public class SDCALayer: CALayerConvertible {
     public typealias Target = CALayer
 
     enum CodingKeys: String, CodingKey {
@@ -27,8 +27,8 @@ public class JSONCALayer: CALayerConvertible {
         return layerModelClass
     }
 
-    public static func load(from json: String) -> JSONCALayer? {
-        JSONCALayer.value(from: json)
+    public static func load(from json: String) -> SDCALayer? {
+        SDCALayer.value(from: json)
     }
 
     public init?(model: (any CALayerConvertible)?) {

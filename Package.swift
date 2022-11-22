@@ -3,14 +3,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "JSONCALayer",
+    name: "SDCALayer",
     platforms: [
         .iOS(.v13)
     ],
     products: [
         .library(
-            name: "JSONCALayer",
-            targets: ["JSONCALayer"]
+            name: "SDCALayer",
+            targets: ["SDCALayer"]
         ),
     ],
     dependencies: [
@@ -19,15 +19,15 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "JSONCALayer",
+            name: "SDCALayer",
             dependencies: [
                 .product(name: "IndirectlyCodable", package: "IndirectlyCodable"),
                 .product(name: "KeyPathValue", package: "KeyPathValue")
             ]
         ),
         .testTarget(
-            name: "JSONCALayerTests",
-            dependencies: ["JSONCALayer"]
+            name: "SDCALayerTests",
+            dependencies: ["SDCALayer"]
         ),
     ]
 )

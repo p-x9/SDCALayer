@@ -103,11 +103,11 @@ public class JCALayer: CALayerConvertible, Codable {
     public var isDoubleSided: Bool?
     public var isGeometryFlipped: Bool?
 
-    public var sublayers: [JSONCALayer]?
+    public var sublayers: [SDCALayer]?
 
     public var sublayerTransform: CATransform3D?
 
-    public var mask: JSONCALayer?
+    public var mask: SDCALayer?
     public var masksToBounds: Bool?
 
     public var isOpaque: Bool?
@@ -161,9 +161,9 @@ public class JCALayer: CALayerConvertible, Codable {
     public func reverseApplyProperties(with target: CALayer) {
         Self.reversePropertyMap.apply(to: self, from: target)
 
-        self.mask = JSONCALayer(model: target.mask?.codable())
+        self.mask = SDCALayer(model: target.mask?.codable())
         self.sublayers = target.sublayers?.compactMap {
-            JSONCALayer(model: $0.codable())
+            SDCALayer(model: $0.codable())
         }
     }
 
