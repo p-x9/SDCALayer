@@ -31,11 +31,19 @@ public class SDCALayer: CALayerConvertible {
         SDCALayer.value(from: json)
     }
 
-    public init?(model: (any CALayerConvertible)?) {
-        guard let model else { return nil }
+    public var json: String? {
+        self.jsonString
+    }
 
+    public init(model: (any CALayerConvertible)) {
         self.class = type(of: model).targetTypeName
         self.layerModel = model
+    }
+
+    public convenience init?(model: (any CALayerConvertible)?) {
+        guard let model else { return nil }
+
+        self.init(model: model)
     }
 
     public init(class: String?, model: any CALayerConvertible) {
@@ -43,9 +51,11 @@ public class SDCALayer: CALayerConvertible {
         self.layerModel = model
     }
 
-    // dummy
     public required convenience init(with object: CALayer) {
-        self.init(class: "\(type(of: object))", model: JCALayer(with: object))
+        guard let model = object.codable() else {
+            fatalError("not supported Layer type")
+        }
+        self.init(model: model)
     }
 
     required public init(from decoder: Decoder) throws {
