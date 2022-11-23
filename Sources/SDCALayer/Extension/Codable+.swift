@@ -11,7 +11,8 @@ import Foundation
 extension Encodable {
     private static var jsonEncoder: JSONEncoder {
         let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        // Do not sort because the order of SUBLAYER should not change.
+        encoder.outputFormatting = [.prettyPrinted]
         return encoder
     }
 
