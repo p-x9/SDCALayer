@@ -19,11 +19,11 @@ public class JCGColor: ObjectConvertiblyCodable {
     }
 
     public required init(with object: CGColor) {
-        code = object.rgbString
+        code = object.rgbaString
     }
 
     public func converted() -> CGColor? {
         guard let code else { return nil }
-        return CGColor.color(rgb: code)
+        return CGColor.color(rgba: code)
     }
 }

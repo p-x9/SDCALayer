@@ -9,10 +9,12 @@
 #if canImport(UIKit)
 import UIKit
 typealias NSUIFont = UIFont
+typealias NSUIColor = UIColor
 #endif
 
 #if canImport(Cocoa)
 import Cocoa
 typealias NSUIFont = NSFont
+typealias NSUIColor = NSColor
 #endif
 

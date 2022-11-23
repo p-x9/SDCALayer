@@ -14,6 +14,6 @@ extension CGColor: IndirectlyCodable {
     public func applyProperties(to target: JCGColor) {}
 
     public func codable() -> JCGColor? {
-        JCGColor(code: self.rgbString)
+        JCGColor(code: self.rgbaString)
     }
 }
