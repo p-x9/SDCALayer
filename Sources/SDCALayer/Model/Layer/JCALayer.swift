@@ -32,6 +32,7 @@ public class JCALayer: CALayerConvertible, Codable {
          \.mask: .init(\.mask),
          \.masksToBounds: .init(\.masksToBounds),
          \.isOpaque: .init(\.isOpaque),
+         \.needsDisplayOnBoundsChange: .init(\.needsDisplayOnBoundsChange),
          \.drawsAsynchronously: .init(\.drawsAsynchronously),
          \.allowsEdgeAntialiasing: .init(\.allowsEdgeAntialiasing),
          \.backgroundColor: .init(\.backgroundColor),
@@ -67,6 +68,7 @@ public class JCALayer: CALayerConvertible, Codable {
          \.mask: .init(\.mask),
          \.masksToBounds: .init(\.masksToBounds),
          \.isOpaque: .init(\.isOpaque),
+         \.needsDisplayOnBoundsChange: .init(\.needsDisplayOnBoundsChange),
          \.drawsAsynchronously: .init(\.drawsAsynchronously),
          \.allowsEdgeAntialiasing: .init(\.allowsEdgeAntialiasing),
          \.backgroundColor: .init(\.backgroundColor),
@@ -111,6 +113,8 @@ public class JCALayer: CALayerConvertible, Codable {
     public var masksToBounds: Bool?
 
     public var isOpaque: Bool?
+
+    public var needsDisplayOnBoundsChange: Bool?
 
     public var drawsAsynchronously: Bool?
 
