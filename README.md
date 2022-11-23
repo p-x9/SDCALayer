@@ -73,9 +73,8 @@ class AALayer: CALayer {
 ```
 
 create layer model like this.
+<details>
 <summary>click to expand</summary>
-<pre>
-<code>
 
 ```swift
 class JAALayer: JCALayer {
@@ -150,9 +149,7 @@ class JAALayer: JCALayer {
     }
 }
 ```
-
-</code>
-</pre>
+</summary>
 </details>
 
 ## Example
