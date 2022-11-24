@@ -14,8 +14,8 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/p-x9/IndirectlyCodable.git", exact: "0.0.1"),
-        .package(url: "https://github.com/p-x9/KeyPathValue.git", exact: "0.0.1")
+        .package(url: "https://github.com/p-x9/IndirectlyCodable.git", .upToNextMinor(from: "0.0.1")),
+        .package(url: "https://github.com/p-x9/KeyPathValue.git", .upToNextMinor(from: "0.0.1"))
     ],
     targets: [
         .target(
