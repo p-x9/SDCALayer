@@ -18,9 +18,14 @@ Server-Driven CALayer
 ```swift
 let json: String = ""
 
-let model = SDCALayer.load(from: json)
+let model = SDCALayer.load(fromJSON: json)
 
 let layer: CALayer = model?.convertToLayer()
+```
+
+### YAML to CALayer
+```swift
+let model = SDCALayer.load(fromYAML: yaml)
 ```
 
 ### CALayer to JSON
@@ -31,6 +36,10 @@ let layer = CAShapeLayer()
 let model = SDCALayer(model: layer.codable())
 
 let json: String = model?.json
+```
+### CALayer to YAML
+```swift
+let yaml: String = model?.yaml
 ```
 
 ### Formats of Layer Model 
