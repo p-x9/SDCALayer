@@ -27,12 +27,20 @@ public class SDCALayer: CALayerConvertible {
         return layerModelClass
     }
 
-    public static func load(from json: String) -> SDCALayer? {
-        SDCALayer.value(from: json)
+    public static func load(fromJSON json: String) -> SDCALayer? {
+        SDCALayer.value(fromJSON: json)
+    }
+
+    public static func load(fromYAML yaml: String) -> SDCALayer? {
+        SDCALayer.value(fromYAML: yaml)
     }
 
     public var json: String? {
         self.jsonString
+    }
+
+    public var yaml: String? {
+        self.yamlString
     }
 
     public init(model: (any CALayerConvertible)) {
