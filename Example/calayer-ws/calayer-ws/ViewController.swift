@@ -56,7 +56,7 @@ class ViewController: UIViewController {
 
     func handle(message: String) {
         DispatchQueue.main.async {
-            guard let model = SDCALayer.load(from: message),
+            guard let model = SDCALayer.load(fromJSON: message),
                   let layer = model.convertToLayer() else {
                 return
             }
