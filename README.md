@@ -165,6 +165,17 @@ class JAALayer: JCALayer {
 </summary>
 </details>
 
+Finally, specify the model class in the layer class extension
+```swift
+extension AALayer {
+    public typealias Target = JAALayer
+
+    public override class var codableTypeName: String {
+        String(reflecting: Target.self)
+    }
+}
+```
+
 ## Example
 ### Websocket HotReload
 Start the server, change the json, save it, and it will be reflected in the app.
