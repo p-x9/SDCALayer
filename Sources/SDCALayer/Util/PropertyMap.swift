@@ -39,6 +39,7 @@ extension PropertyMap {
 extension PropertyMap {
     /// IndirectlyCodable -> ObjectConvertiblyCodable
     /// (IndirectlyCodable -> Codable)
+    @_disfavoredOverload
     func apply<Target: AnyObject, Object: AnyObject>(to target: Target, from object: Object) where Key: PartialKeyPath<Object>, Value == ReferenceWritableKeyPathValueApplier<Target>, Target: ObjectConvertiblyCodable, Object: IndirectlyCodable {
 
         self.forEach { keyPath, applier in
@@ -55,6 +56,35 @@ extension PropertyMap {
                 break
             }
             applier.apply(value, target)
+        }
+    }
+}
+
+import QuartzCore
+extension PropertyMap {
+    /// CALayer -> CALayerConvertible
+    /// (CaLayer -> Codable)
+    func apply<Target: AnyObject, Object: AnyObject>(to target: Target, from object: Object) where Key: PartialKeyPath<Object>, Value == ReferenceWritableKeyPathValueApplier<Target>, Target: ObjectConvertiblyCodable, Object: CALayer & IndirectlyCodable {
+
+        self.forEach { keyPath, applier in
+            var value = object[keyPath: keyPath]
+
+            switch value {
+            case let v as (any IndirectlyCodable):
+                guard let codable = v.codable() else { return }
+                value = codable
+
+            case let v as [any IndirectlyCodable]:
+                value = v.compactMap { $0.codable() }
+
+            default:
+                break
+            }
+
+            if let keyPath = keyPath._kvcKeyPathString,
+               object.shouldArchiveValue(forKey: keyPath) {
+                applier.apply(value, target)
+            }
         }
     }
 }
