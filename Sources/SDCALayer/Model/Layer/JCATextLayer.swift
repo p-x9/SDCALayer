@@ -96,20 +96,20 @@ public class JCATextLayer: JCALayer {
 
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(string, forKey: .string)
+        try container.encodeIfPresent(string, forKey: .string)
 
-        try container.encode(font, forKey: .font)
-        try container.encode(fontSize, forKey: .fontSize)
+        try container.encodeIfPresent(font, forKey: .font)
+        try container.encodeIfPresent(fontSize, forKey: .fontSize)
 
-        try container.encode(foregroundColor, forKey: .foregroundColor)
+        try container.encodeIfPresent(foregroundColor, forKey: .foregroundColor)
 
-        try container.encode(isWrapped, forKey: .isWrapped)
+        try container.encodeIfPresent(isWrapped, forKey: .isWrapped)
 
-        try container.encode(truncationMode, forKey: .truncationMode)
+        try container.encodeIfPresent(truncationMode, forKey: .truncationMode)
 
-        try container.encode(alignmentMode, forKey: .alignmentMode)
+        try container.encodeIfPresent(alignmentMode, forKey: .alignmentMode)
 
-        try container.encode(allowsFontSubpixelQuantization, forKey: .allowsFontSubpixelQuantization)
+        try container.encodeIfPresent(allowsFontSubpixelQuantization, forKey: .allowsFontSubpixelQuantization)
     }
 
     public override func applyProperties(to target: CALayer) {
