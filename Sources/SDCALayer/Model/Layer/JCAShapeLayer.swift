@@ -111,25 +111,25 @@ public class JCAShapeLayer: JCALayer {
 
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(path, forKey: .path)
-        try container.encode(fillColor, forKey: .fillColor)
+        try container.encodeIfPresent(path, forKey: .path)
+        try container.encodeIfPresent(fillColor, forKey: .fillColor)
 
-        try container.encode(fillRule, forKey: .fillRule)
+        try container.encodeIfPresent(fillRule, forKey: .fillRule)
 
-        try container.encode(strokeColor, forKey: .strokeColor)
+        try container.encodeIfPresent(strokeColor, forKey: .strokeColor)
 
-        try container.encode(strokeStart, forKey: .strokeStart)
-        try container.encode(strokeEnd, forKey: .strokeEnd)
+        try container.encodeIfPresent(strokeStart, forKey: .strokeStart)
+        try container.encodeIfPresent(strokeEnd, forKey: .strokeEnd)
 
-        try container.encode(lineWidth, forKey: .lineWidth)
-        try container.encode(miterLimit, forKey: .miterLimit)
+        try container.encodeIfPresent(lineWidth, forKey: .lineWidth)
+        try container.encodeIfPresent(miterLimit, forKey: .miterLimit)
 
-        try container.encode(lineCap, forKey: .lineCap)
-        try container.encode(lineJoin, forKey: .lineJoin)
+        try container.encodeIfPresent(lineCap, forKey: .lineCap)
+        try container.encodeIfPresent(lineJoin, forKey: .lineJoin)
 
-        try container.encode(lineDashPhase, forKey: .lineDashPhase)
+        try container.encodeIfPresent(lineDashPhase, forKey: .lineDashPhase)
 
-        try container.encode(lineDashPattern, forKey: .lineDashPattern)
+        try container.encodeIfPresent(lineDashPattern, forKey: .lineDashPattern)
     }
 
     public override func applyProperties(to target: CALayer) {

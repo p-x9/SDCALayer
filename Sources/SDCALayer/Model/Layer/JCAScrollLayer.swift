@@ -46,7 +46,7 @@ public class JCAScrollLayer: JCALayer {
 
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(scrollMode, forKey: .scrollMode)
+        try container.encodeIfPresent(scrollMode, forKey: .scrollMode)
     }
 
     public override func applyProperties(to target: CALayer) {

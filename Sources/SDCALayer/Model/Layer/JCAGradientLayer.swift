@@ -72,13 +72,13 @@ public class JCAGradientLayer: JCALayer {
 
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(colors, forKey: .colors)
-        try container.encode(locations, forKey: .locations)
+        try container.encodeIfPresent(colors, forKey: .colors)
+        try container.encodeIfPresent(locations, forKey: .locations)
 
-        try container.encode(startPoint, forKey: .startPoint)
-        try container.encode(endPoint, forKey: .endPoint)
+        try container.encodeIfPresent(startPoint, forKey: .startPoint)
+        try container.encodeIfPresent(endPoint, forKey: .endPoint)
 
-        try container.encode(type, forKey: .type)
+        try container.encodeIfPresent(type, forKey: .type)
     }
 
     public override func applyProperties(to target: CALayer) {
