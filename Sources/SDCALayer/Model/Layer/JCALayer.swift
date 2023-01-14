@@ -10,7 +10,7 @@ import Foundation
 import QuartzCore
 import KeyPathValue
 
-public class JCALayer: CALayerConvertible, Codable {
+open class JCALayer: CALayerConvertible, Codable {
     public typealias Target = CALayer
 
     open class var targetTypeName: String {
@@ -153,7 +153,7 @@ public class JCALayer: CALayerConvertible, Codable {
         reverseApplyProperties(with: object)
     }
 
-    public func applyProperties(to target: CALayer) {
+    open func applyProperties(to target: CALayer) {
         Self.propertyMap.apply(to: target, from: self)
 
         sublayers?.compactMap { $0.convertToLayer() }
@@ -162,7 +162,7 @@ public class JCALayer: CALayerConvertible, Codable {
             }
     }
 
-    public func reverseApplyProperties(with target: CALayer) {
+    open func reverseApplyProperties(with target: CALayer) {
         Self.reversePropertyMap.apply(to: self, from: target)
 
         self.mask = SDCALayer(model: target.mask?.codable())
@@ -171,7 +171,7 @@ public class JCALayer: CALayerConvertible, Codable {
         }
     }
 
-    public func convertToLayer() -> CALayer? {
+    open func convertToLayer() -> CALayer? {
         let layer = CALayer()
 
         self.applyProperties(to: layer)

@@ -35,12 +35,12 @@ extension CGColor {
     }
 
     /// rgb color code
-    public var rgbString: String {
+    var rgbString: String {
         NSUIColor(cgColor: self).rgbString
     }
 
     /// rgba color code
-    public var rgbaString: String {
+    var rgbaString: String {
         NSUIColor(cgColor: self).rgbaString
     }
 }

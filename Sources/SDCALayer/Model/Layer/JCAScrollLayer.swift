@@ -10,20 +10,20 @@ import Foundation
 import QuartzCore
 import KeyPathValue
 
-public class JCAScrollLayer: JCALayer {
+open class JCAScrollLayer: JCALayer {
     typealias Target = CAScrollLayer
 
     private enum CodingKeys: String, CodingKey {
         case scrollMode
     }
 
-    public override class var targetTypeName: String {
+    open override class var targetTypeName: String {
         String(reflecting: Target.self)
     }
 
     public var scrollMode: JCAScrollLayerScrollMode?
 
-    override init() {
+    public override init() {
         super.init()
     }
 
@@ -41,7 +41,7 @@ public class JCAScrollLayer: JCALayer {
         reverseApplyProperties(with: object)
     }
 
-    public override func encode(to encoder: Encoder) throws {
+    open override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
 
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -49,7 +49,7 @@ public class JCAScrollLayer: JCALayer {
         try container.encodeIfPresent(scrollMode, forKey: .scrollMode)
     }
 
-    public override func applyProperties(to target: CALayer) {
+    open override func applyProperties(to target: CALayer) {
         super.applyProperties(to: target)
 
         guard let target = target as? CAScrollLayer else { return }
@@ -59,7 +59,7 @@ public class JCAScrollLayer: JCALayer {
         }
     }
 
-    public override func reverseApplyProperties(with target: CALayer) {
+    open override func reverseApplyProperties(with target: CALayer) {
         super.reverseApplyProperties(with: target)
 
         guard let target = target as? CAScrollLayer else { return }
@@ -67,7 +67,7 @@ public class JCAScrollLayer: JCALayer {
         scrollMode = target.scrollMode.codable()
     }
 
-    public override func convertToLayer() -> CALayer? {
+    open override func convertToLayer() -> CALayer? {
         let layer = CAScrollLayer()
 
         self.applyProperties(to: layer)

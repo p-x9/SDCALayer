@@ -10,14 +10,14 @@ import Foundation
 import QuartzCore
 import KeyPathValue
 
-public class JCAShapeLayer: JCALayer {
+open class JCAShapeLayer: JCALayer {
     typealias Target = CAShapeLayer
 
     private enum CodingKeys: String, CodingKey {
         case path, fillColor, fillRule, strokeColor, strokeStart, strokeEnd, lineWidth, miterLimit, lineCap, lineJoin, lineDashPhase, lineDashPattern
     }
 
-    public override class var targetTypeName: String {
+    open override class var targetTypeName: String {
         String(reflecting: Target.self)
     }
 
@@ -70,11 +70,11 @@ public class JCAShapeLayer: JCALayer {
 
     public var lineDashPattern: [Double]?
 
-    override init() {
+    public override init() {
         super.init()
     }
 
-    required init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -106,7 +106,7 @@ public class JCAShapeLayer: JCALayer {
         reverseApplyProperties(with: object)
     }
 
-    public override func encode(to encoder: Encoder) throws {
+    open override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
 
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -132,7 +132,7 @@ public class JCAShapeLayer: JCALayer {
         try container.encodeIfPresent(lineDashPattern, forKey: .lineDashPattern)
     }
 
-    public override func applyProperties(to target: CALayer) {
+    open override func applyProperties(to target: CALayer) {
         super.applyProperties(to: target)
 
         guard let target = target as? CAShapeLayer else { return }
@@ -142,7 +142,7 @@ public class JCAShapeLayer: JCALayer {
         target.lineDashPattern = lineDashPattern?.map { NSNumber(floatLiteral: $0) }
     }
 
-    public override func reverseApplyProperties(with target: CALayer) {
+    open override func reverseApplyProperties(with target: CALayer) {
         super.reverseApplyProperties(with: target)
 
         guard let target = target as? CAShapeLayer else { return }
@@ -152,7 +152,7 @@ public class JCAShapeLayer: JCALayer {
         self.lineDashPattern = target.lineDashPattern?.map { $0.doubleValue }
     }
 
-    public override func convertToLayer() -> CALayer? {
+    open override func convertToLayer() -> CALayer? {
         let layer = CAShapeLayer()
 
         self.applyProperties(to: layer)
