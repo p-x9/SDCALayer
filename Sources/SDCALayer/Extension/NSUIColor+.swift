@@ -10,7 +10,7 @@ import Foundation
 
 extension NSUIColor {
     /// rgb color code
-    public var rgbString: String {
+    var rgbString: String {
         var red: CGFloat = -1
         var blue: CGFloat = -1
         var green: CGFloat = -1
@@ -23,7 +23,7 @@ extension NSUIColor {
     }
 
     /// rgba color code
-    public var rgbaString: String {
+    var rgbaString: String {
         var red: CGFloat = -1
         var blue: CGFloat = -1
         var green: CGFloat = -1

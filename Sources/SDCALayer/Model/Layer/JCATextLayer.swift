@@ -11,14 +11,14 @@ import QuartzCore
 import CoreText
 import KeyPathValue
 
-public class JCATextLayer: JCALayer {
+open class JCATextLayer: JCALayer {
     typealias Target = CATextLayer
 
     private enum CodingKeys: String, CodingKey {
         case string, font, fontSize, foregroundColor, isWrapped, truncationMode, alignmentMode, allowsFontSubpixelQuantization
     }
 
-    public override class var targetTypeName: String {
+    open override class var targetTypeName: String {
         String(reflecting: Target.self)
     }
 
@@ -60,7 +60,7 @@ public class JCATextLayer: JCALayer {
 
     public var allowsFontSubpixelQuantization: Bool?
 
-    override init() {
+    public override init() {
         super.init()
     }
 
@@ -91,7 +91,7 @@ public class JCATextLayer: JCALayer {
         reverseApplyProperties(with: object)
     }
 
-    public override func encode(to encoder: Encoder) throws {
+    open override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
 
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -112,7 +112,7 @@ public class JCATextLayer: JCALayer {
         try container.encodeIfPresent(allowsFontSubpixelQuantization, forKey: .allowsFontSubpixelQuantization)
     }
 
-    public override func applyProperties(to target: CALayer) {
+    open override func applyProperties(to target: CALayer) {
         super.applyProperties(to: target)
 
         guard let target = target as? CATextLayer else { return }
@@ -120,7 +120,7 @@ public class JCATextLayer: JCALayer {
         Self.propertyMap.apply(to: target, from: self)
     }
 
-    public override func reverseApplyProperties(with target: CALayer) {
+    open override func reverseApplyProperties(with target: CALayer) {
         super.reverseApplyProperties(with: target)
 
         guard let target = target as? CATextLayer else { return }
@@ -141,7 +141,7 @@ public class JCATextLayer: JCALayer {
         }
     }
 
-    public override func convertToLayer() -> CALayer? {
+    open override func convertToLayer() -> CALayer? {
         let layer = CATextLayer()
 
         self.applyProperties(to: layer)

@@ -14,7 +14,7 @@ public class JCGColor: ObjectConvertiblyCodable {
 
     public let code: String?
 
-    init(code: String) {
+    public init(code: String) {
         self.code = code
     }
 

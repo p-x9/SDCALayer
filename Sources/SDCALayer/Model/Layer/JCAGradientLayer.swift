@@ -10,14 +10,14 @@ import Foundation
 import QuartzCore
 import KeyPathValue
 
-public class JCAGradientLayer: JCALayer {
+open class JCAGradientLayer: JCALayer {
     public typealias Target = CAGradientLayer
 
     private enum CodingKeys: String, CodingKey {
         case colors, locations, startPoint, endPoint, type
     }
 
-    public override class var targetTypeName: String {
+    open override class var targetTypeName: String {
         String(reflecting: Target.self)
     }
 
@@ -43,11 +43,11 @@ public class JCAGradientLayer: JCALayer {
 
     public var type: JCAGradientLayerType?
 
-    override init() {
+    public override init() {
         super.init()
     }
 
-    required init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -67,7 +67,7 @@ public class JCAGradientLayer: JCALayer {
         reverseApplyProperties(with: object)
     }
 
-    public override func encode(to encoder: Encoder) throws {
+    open override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
 
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -81,7 +81,7 @@ public class JCAGradientLayer: JCALayer {
         try container.encodeIfPresent(type, forKey: .type)
     }
 
-    public override func applyProperties(to target: CALayer) {
+    open override func applyProperties(to target: CALayer) {
         super.applyProperties(to: target)
 
         guard let target = target as? CAGradientLayer else { return }
@@ -91,7 +91,7 @@ public class JCAGradientLayer: JCALayer {
         target.locations = locations?.map { NSNumber(floatLiteral: $0) }
     }
 
-    public override func reverseApplyProperties(with target: CALayer) {
+    open override func reverseApplyProperties(with target: CALayer) {
         super.reverseApplyProperties(with: target)
 
         guard let target = target as? CAGradientLayer else { return }
@@ -101,7 +101,7 @@ public class JCAGradientLayer: JCALayer {
         self.locations = target.locations?.map { $0.doubleValue }
     }
 
-    public override func convertToLayer() -> CALayer? {
+    open override func convertToLayer() -> CALayer? {
         let layer = CAGradientLayer()
 
         self.applyProperties(to: layer)

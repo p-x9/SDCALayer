@@ -10,13 +10,13 @@ import Foundation
 import IndirectlyCodable
 import KeyPathValue
 
-typealias PropertyMap<Target: AnyObject, Object: AnyObject> = Dictionary<PartialKeyPath<Object>, ReferenceWritableKeyPathValueApplier<Target>>
+public typealias PropertyMap<Target: AnyObject, Object: AnyObject> = Dictionary<PartialKeyPath<Object>, ReferenceWritableKeyPathValueApplier<Target>>
 
 
 extension PropertyMap {
     /// ObjectConvertiblyCodable -> IndirectlyCodable
     /// (Codable -> IndirectlyCodable)
-    func apply<Target: AnyObject, Object: AnyObject>(to target: Target, from object: Object) where Key: PartialKeyPath<Object>, Value == ReferenceWritableKeyPathValueApplier<Target>, Target: IndirectlyCodable, Object: ObjectConvertiblyCodable {
+    public func apply<Target: AnyObject, Object: AnyObject>(to target: Target, from object: Object) where Key: PartialKeyPath<Object>, Value == ReferenceWritableKeyPathValueApplier<Target>, Target: IndirectlyCodable, Object: ObjectConvertiblyCodable {
         
         self.forEach { keyPath, applier in
             var value = object[keyPath: keyPath]
@@ -40,7 +40,7 @@ extension PropertyMap {
     /// IndirectlyCodable -> ObjectConvertiblyCodable
     /// (IndirectlyCodable -> Codable)
     @_disfavoredOverload
-    func apply<Target: AnyObject, Object: AnyObject>(to target: Target, from object: Object) where Key: PartialKeyPath<Object>, Value == ReferenceWritableKeyPathValueApplier<Target>, Target: ObjectConvertiblyCodable, Object: IndirectlyCodable {
+    public func apply<Target: AnyObject, Object: AnyObject>(to target: Target, from object: Object) where Key: PartialKeyPath<Object>, Value == ReferenceWritableKeyPathValueApplier<Target>, Target: ObjectConvertiblyCodable, Object: IndirectlyCodable {
 
         self.forEach { keyPath, applier in
             var value = object[keyPath: keyPath]
@@ -64,7 +64,7 @@ import QuartzCore
 extension PropertyMap {
     /// CALayer -> CALayerConvertible
     /// (CaLayer -> Codable)
-    func apply<Target: AnyObject, Object: AnyObject>(to target: Target, from object: Object) where Key: PartialKeyPath<Object>, Value == ReferenceWritableKeyPathValueApplier<Target>, Target: ObjectConvertiblyCodable, Object: CALayer & IndirectlyCodable {
+    public func apply<Target: AnyObject, Object: AnyObject>(to target: Target, from object: Object) where Key: PartialKeyPath<Object>, Value == ReferenceWritableKeyPathValueApplier<Target>, Target: ObjectConvertiblyCodable, Object: CALayer & IndirectlyCodable {
 
         self.forEach { keyPath, applier in
             var value = object[keyPath: keyPath]

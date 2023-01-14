@@ -13,7 +13,7 @@ public class JCGPath: ObjectConvertiblyCodable {
 
     public var pathElements: [JCGPathElement]?
 
-    init(pathElements: [JCGPathElement]?) {
+    public init(pathElements: [JCGPathElement]?) {
         self.pathElements = pathElements
     }
 
@@ -67,8 +67,8 @@ public struct JCGPathElement: Codable {
     }
 }
 
-public extension CGPath {
-    var jelements: [JCGPathElement] {
+extension CGPath {
+    public var jelements: [JCGPathElement] {
         var elements = [JCGPathElement]()
         forEach { element in
             let type = element.type
