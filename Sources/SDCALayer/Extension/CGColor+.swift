@@ -1,9 +1,9 @@
 //
 //  CGColor+.swift
-//  
+//
 //
 //  Created by p-x9 on 2022/11/03.
-//  
+//
 //
 
 import Foundation
@@ -34,13 +34,31 @@ extension CGColor {
         return CGColor(red: r, green: g, blue: b, alpha: a)
     }
 
+    private var rgbaComponents: [CGFloat] {
+        guard let colorSpace = CGColorSpace(name: CGColorSpace.extendedSRGB),
+              let converted = self.converted(to: colorSpace, intent: .defaultIntent, options: nil),
+              let components = converted.components,
+              converted.numberOfComponents == 4 else {
+            fatalError("unsupported cgcolor")
+        }
+        return components
+    }
+
     /// rgb color code
     var rgbString: String {
-        NSUIColor(cgColor: self).rgbString
+        let rgb: [CGFloat] = Array(rgbaComponents[0...3])
+        return rgb.reduce(into: "") { res, value in
+            let intval = Int(round(value * 255))
+            res += (NSString(format: "%02X", intval) as String)
+        }
     }
 
     /// rgba color code
     var rgbaString: String {
-        NSUIColor(cgColor: self).rgbaString
+        let rgba: [CGFloat] = rgbaComponents
+        return rgba.reduce(into: "") { res, value in
+            let intval = Int(round(value * 255))
+            res += (NSString(format: "%02X", intval) as String)
+        }
     }
 }
