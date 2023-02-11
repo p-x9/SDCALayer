@@ -11,7 +11,7 @@ import QuartzCore
 extension CAScrollLayer {
     public typealias Target = JCAScrollLayer
 
-    public override class var codableTypeName: String {
+    open override class var codableTypeName: String {
         String(reflecting: Target.self)
     }
 }

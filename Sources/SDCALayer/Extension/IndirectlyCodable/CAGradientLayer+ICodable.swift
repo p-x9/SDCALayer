@@ -11,7 +11,7 @@ import QuartzCore
 extension CAGradientLayer {
     public typealias Target = JCAGradientLayer
 
-    public override class var codableTypeName: String {
+    open override class var codableTypeName: String {
         String(reflecting: Target.self)
     }
 }
