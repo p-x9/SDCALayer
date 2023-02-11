@@ -20,7 +20,7 @@ extension CALayer: IndirectlyCodable {
     }
 
     @objc
-    public class var codableTypeName: String {
+    open class var codableTypeName: String {
         String(reflecting: Target.self)
     }
 }

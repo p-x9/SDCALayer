@@ -11,7 +11,7 @@ import QuartzCore
 extension CATextLayer {
     public typealias Target = JCATextLayer
 
-    public override class var codableTypeName: String {
+    open override class var codableTypeName: String {
         String(reflecting: Target.self)
     }
 }
