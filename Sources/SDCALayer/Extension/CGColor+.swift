@@ -18,7 +18,7 @@ extension CGColor {
             g = CGFloat((color & 0x00FF00) >>  8) / 255.0
             b = CGFloat( color & 0x0000FF       ) / 255.0
         }
-        return CGColor(red: r, green: g, blue: b, alpha: 1.0)
+        return CGColor(srgbRed: r, green: g, blue: b, alpha: 1.0)
     }
 
     static func color(rgba code: String) -> CGColor {
@@ -31,7 +31,7 @@ extension CGColor {
             b = CGFloat((color & 0x0000FF00) >> 8 ) / 255.0
             a = CGFloat( color & 0x000000FF       ) / 255.0
         }
-        return CGColor(red: r, green: g, blue: b, alpha: a)
+        return CGColor(srgbRed: r, green: g, blue: b, alpha: a)
     }
 
     private var rgbaComponents: [CGFloat] {
