@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/p-x9/KeyPathValue.git",
       "state" : {
-        "revision" : "6aeb41d6c5564ae1f18e8b7a4bc5733d739558e3",
-        "version" : "0.0.1"
+        "revision" : "8938b8f8d74a70c6b2d6a94b02e7d5753eb001db",
+        "version" : "0.1.0"
       }
     },
     {
