@@ -22,7 +22,7 @@ extension Encodable {
         return encoder
     }
 
-    var jsonString: String?  {
+    var jsonString: String? {
         guard let data = try? Self.jsonEncoder.encode(self) else {
             return nil
         }

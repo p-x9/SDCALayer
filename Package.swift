@@ -12,7 +12,7 @@ let package = Package(
         .library(
             name: "SDCALayer",
             targets: ["SDCALayer"]
-        ),
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/p-x9/IndirectlyCodable.git", .upToNextMinor(from: "0.0.1")),
@@ -31,6 +31,6 @@ let package = Package(
         .testTarget(
             name: "SDCALayerTests",
             dependencies: ["SDCALayer"]
-        ),
+        )
     ]
 )

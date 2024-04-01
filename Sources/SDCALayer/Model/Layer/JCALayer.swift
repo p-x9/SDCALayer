@@ -195,7 +195,6 @@ public class JCALayerCornerCurve: ObjectConvertiblyCodable {
     }
 }
 
-
 public class JCACornerMask: ObjectConvertiblyCodable {
     public typealias Target = CACornerMask
 

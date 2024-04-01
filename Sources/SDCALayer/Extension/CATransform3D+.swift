@@ -10,7 +10,10 @@ import QuartzCore
 
 extension CATransform3D: Codable {
     private enum CodingKeys: String, CodingKey {
-        case m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44
+        case m11, m12, m13, m14
+        case m21, m22, m23, m24
+        case m31, m32, m33, m34
+        case m41, m42, m43, m44
     }
 
     public func encode(to encoder: Encoder) throws {

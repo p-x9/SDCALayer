@@ -57,7 +57,6 @@ public class JCGPath: ObjectConvertiblyCodable {
     }
 }
 
-
 public struct JCGPathElement: Codable {
     public var type: String
     public var points: [CGPoint]
