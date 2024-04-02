@@ -29,7 +29,7 @@ public class JCGPath: IndirectlyCodableModel {
             .filter {
                 let isValid = $0.elementType != nil && $0.elementType!.numberOfPoints <= $0.points.count
                 if !isValid {
-                    print("⚠️[warning] SDCALayer invalid path element")
+                    print("⚠️ [SDCALayer] invalid path element")
                 }
                 return isValid
             }

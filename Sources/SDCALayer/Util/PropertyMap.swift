@@ -104,7 +104,7 @@ extension PropertyMap {
 #if DEBUG
             let result = applier.apply(value, to: target)
             if !result {
-                print("[⚠️SDCALayer] failed to assign value(\(keyPath)")
+                print("⚠️ [SDCALayer] failed to assign value(\(keyPath)")
             }
 #else
             applier.apply(value, to: target)
@@ -136,7 +136,7 @@ extension PropertyMap {
 #if DEBUG
             let result = applier.apply(value, to: source)
             if !result {
-                print("[⚠️SDCALayer] failed to assign value(\(keyPath)")
+                print("⚠️ [SDCALayer] failed to assign value(\(keyPath)")
             }
 #else
             applier.apply(value, to: source)
@@ -174,7 +174,7 @@ extension PropertyMap {
 #if DEBUG
                 let result = applier.apply(value, to: target)
                 if !result {
-                    print("[⚠️SDCALayer] failed to assign value(\(keyPath)")
+                    print("⚠️ [SDCALayer] failed to assign value(\(keyPath)")
                 }
 #else
                 applier.apply(value, to: target)
