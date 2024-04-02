@@ -32,7 +32,8 @@ open class JCAShapeLayer: JCALayer {
         .init(\.miterLimit, \.miterLimit),
         .init(\.lineCap, \.lineCap),
         .init(\.lineJoin, \.lineJoin),
-        .init(\.lineDashPhase, \.lineDashPhase)
+        .init(\.lineDashPhase, \.lineDashPhase),
+//        .init(\.lineDashPattern, \.lineDashPattern)
     ])
 
     public var path: JCGPath?

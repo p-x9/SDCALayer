@@ -23,6 +23,7 @@ open class JCAGradientLayer: JCALayer {
 
     static private let propertyMap: PropertyMap<CAGradientLayer, JCAGradientLayer> = .init([
         .init(\.colors, \.colors),
+//        .init(\.locations, \.locations),
         .init(\.startPoint, \.startPoint),
         .init(\.endPoint, \.endPoint),
         .init(\.type, \.type)
