@@ -1,9 +1,9 @@
 //
 //  JCALayer.swift
-//  
+//
 //
 //  Created by p-x9 on 2022/11/06.
-//  
+//
 //
 
 import Foundation
@@ -17,78 +17,41 @@ open class JCALayer: CALayerConvertible, Codable {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: PropertyMap<CALayer, JCALayer> = [
-        \.bounds: .init(\.bounds),
-         \.position: .init(\.position),
-         \.zPosition: .init(\.zPosition),
-         \.anchorPoint: .init(\.anchorPoint),
-         \.anchorPointZ: .init(\.anchorPointZ),
-         \.transform: .init(\.transform),
-         \.frame: .init(\.frame),
-         \.isHidden: .init(\.isHidden),
-         \.isDoubleSided: .init(\.isDoubleSided),
-         \.isGeometryFlipped: .init(\.isGeometryFlipped),
-         \.sublayerTransform: .init(\.sublayerTransform),
-         \.mask: .init(\.mask),
-         \.masksToBounds: .init(\.masksToBounds),
-         \.isOpaque: .init(\.isOpaque),
-         \.needsDisplayOnBoundsChange: .init(\.needsDisplayOnBoundsChange),
-         \.drawsAsynchronously: .init(\.drawsAsynchronously),
-         \.allowsEdgeAntialiasing: .init(\.allowsEdgeAntialiasing),
-         \.backgroundColor: .init(\.backgroundColor),
-         \.cornerRadius: .init(\.cornerRadius),
-         \.maskedCorners: .init(\.maskedCorners),
-         \.cornerCurve: .init(\.cornerCurve),
-         \.borderWidth: .init(\.borderWidth),
-         \.borderColor: .init(\.borderColor),
-         \.opacity: .init(\.opacity),
-         \.allowsGroupOpacity: .init(\.allowsGroupOpacity),
-         \.shouldRasterize: .init(\.shouldRasterize),
-         \.rasterizationScale: .init(\.rasterizationScale),
-         \.shadowColor: .init(\.shadowColor),
-         \.shadowOpacity: .init(\.shadowOpacity),
-         \.shadowOffset: .init(\.shadowOffset),
-         \.shadowRadius: .init(\.shadowRadius),
-         \.shadowPath: .init(\.shadowPath),
-         \.name: .init(\.name)
-    ]
-
-    static private let reversePropertyMap: PropertyMap<JCALayer, CALayer> = [
-        \.bounds: .init(\.bounds),
-         \.position: .init(\.position),
-         \.zPosition: .init(\.zPosition),
-         \.anchorPoint: .init(\.anchorPoint),
-         \.anchorPointZ: .init(\.anchorPointZ),
-         \.transform: .init(\.transform),
-         \.frame: .init(\.frame),
-         \.isHidden: .init(\.isHidden),
-         \.isDoubleSided: .init(\.isDoubleSided),
-         \.isGeometryFlipped: .init(\.isGeometryFlipped),
-         \.sublayerTransform: .init(\.sublayerTransform),
-         \.mask: .init(\.mask),
-         \.masksToBounds: .init(\.masksToBounds),
-         \.isOpaque: .init(\.isOpaque),
-         \.needsDisplayOnBoundsChange: .init(\.needsDisplayOnBoundsChange),
-         \.drawsAsynchronously: .init(\.drawsAsynchronously),
-         \.allowsEdgeAntialiasing: .init(\.allowsEdgeAntialiasing),
-         \.backgroundColor: .init(\.backgroundColor),
-         \.cornerRadius: .init(\.cornerRadius),
-         \.maskedCorners: .init(\.maskedCorners),
-         \.cornerCurve: .init(\.cornerCurve),
-         \.borderWidth: .init(\.borderWidth),
-         \.borderColor: .init(\.borderColor),
-         \.opacity: .init(\.opacity),
-         \.allowsGroupOpacity: .init(\.allowsGroupOpacity),
-         \.shouldRasterize: .init(\.shouldRasterize),
-         \.rasterizationScale: .init(\.rasterizationScale),
-         \.shadowColor: .init(\.shadowColor),
-         \.shadowOpacity: .init(\.shadowOpacity),
-         \.shadowOffset: .init(\.shadowOffset),
-         \.shadowRadius: .init(\.shadowRadius),
-         \.shadowPath: .init(\.shadowPath),
-         \.name: .init(\.name),
-         \.sublayers: .init(\.sublayers)
-    ]
+    static private let propertyMap: PropertyMap<CALayer, JCALayer> = .init([
+        .init(\.bounds, \.bounds),
+        .init(\.position, \.position),
+        .init(\.zPosition, \.zPosition),
+        .init(\.anchorPoint, \.anchorPoint),
+        .init(\.anchorPointZ, \.anchorPointZ),
+        .init(\.transform, \.transform),
+        .init(\.frame, \.frame),
+        .init(\.isHidden, \.isHidden),
+        .init(\.isDoubleSided, \.isDoubleSided),
+        .init(\.isGeometryFlipped, \.isGeometryFlipped),
+        .init(\.sublayerTransform, \.sublayerTransform),
+        .init(\.mask, \.mask),
+        .init(\.masksToBounds, \.masksToBounds),
+        .init(\.isOpaque, \.isOpaque),
+        .init(\.needsDisplayOnBoundsChange, \.needsDisplayOnBoundsChange),
+        .init(\.drawsAsynchronously, \.drawsAsynchronously),
+        .init(\.allowsEdgeAntialiasing, \.allowsEdgeAntialiasing),
+        .init(\.backgroundColor, \.backgroundColor),
+        .init(\.cornerRadius, \.cornerRadius),
+        .init(\.maskedCorners, \.maskedCorners),
+        .init(\.cornerCurve, \.cornerCurve),
+        .init(\.borderWidth, \.borderWidth),
+        .init(\.borderColor, \.borderColor),
+        .init(\.opacity, \.opacity),
+        .init(\.allowsGroupOpacity, \.allowsGroupOpacity),
+        .init(\.shouldRasterize, \.shouldRasterize),
+        .init(\.rasterizationScale, \.rasterizationScale),
+        .init(\.shadowColor, \.shadowColor),
+        .init(\.shadowOpacity, \.shadowOpacity),
+        .init(\.shadowOffset, \.shadowOffset),
+        .init(\.shadowRadius, \.shadowRadius),
+        .init(\.shadowPath, \.shadowPath),
+        .init(\.name, \.name)
+    ])
 
     public var bounds: CGRect?
     public var position: CGPoint?
@@ -150,7 +113,7 @@ open class JCALayer: CALayerConvertible, Codable {
     public required convenience init(with object: CALayer) {
         self.init()
 
-        reverseApplyProperties(with: object)
+        applyProperties(with: object)
     }
 
     open func applyProperties(to target: CALayer) {
@@ -162,8 +125,8 @@ open class JCALayer: CALayerConvertible, Codable {
             }
     }
 
-    open func reverseApplyProperties(with target: CALayer) {
-        Self.reversePropertyMap.apply(to: self, from: target)
+    open func applyProperties(with target: CALayer) {
+        Self.propertyMap.apply(to: self, from: target)
 
         self.mask = SDCALayer(model: target.mask?.codable())
         self.sublayers = target.sublayers?.compactMap {
@@ -180,7 +143,7 @@ open class JCALayer: CALayerConvertible, Codable {
     }
 }
 
-public class JCALayerCornerCurve: ObjectConvertiblyCodable {
+public class JCALayerCornerCurve: IndirectlyCodableModel {
     public typealias Target = CALayerCornerCurve
 
     public var rawValue: String?
@@ -195,7 +158,7 @@ public class JCALayerCornerCurve: ObjectConvertiblyCodable {
     }
 }
 
-public class JCACornerMask: ObjectConvertiblyCodable {
+public class JCACornerMask: IndirectlyCodableModel {
     public typealias Target = CACornerMask
 
     public var rawValue: UInt?

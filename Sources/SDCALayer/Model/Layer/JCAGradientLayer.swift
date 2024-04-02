@@ -21,19 +21,12 @@ open class JCAGradientLayer: JCALayer {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: PropertyMap<CAGradientLayer, JCAGradientLayer> = [
-        \.colors: .init(\.colors),
-         \.startPoint: .init(\.startPoint),
-         \.endPoint: .init(\.endPoint),
-         \.type: .init(\.type)
-    ]
-
-    static private let reversePropertyMap: PropertyMap<JCAGradientLayer, CAGradientLayer> = [
-        \.colors: .init(\.colors),
-         \.startPoint: .init(\.startPoint),
-         \.endPoint: .init(\.endPoint),
-         \.type: .init(\.type)
-    ]
+    static private let propertyMap: PropertyMap<CAGradientLayer, JCAGradientLayer> = .init([
+        .init(\.colors, \.colors),
+        .init(\.startPoint, \.startPoint),
+        .init(\.endPoint, \.endPoint),
+        .init(\.type, \.type)
+    ])
 
     public var colors: [JCGColor]?
     public var locations: [Double]?
@@ -64,7 +57,7 @@ open class JCAGradientLayer: JCALayer {
     public required convenience init(with object: CALayer) {
         self.init()
 
-        reverseApplyProperties(with: object)
+        applyProperties(with: object)
     }
 
     open override func encode(to encoder: Encoder) throws {
@@ -91,12 +84,12 @@ open class JCAGradientLayer: JCALayer {
         target.locations = locations?.map { NSNumber(floatLiteral: $0) }
     }
 
-    open override func reverseApplyProperties(with target: CALayer) {
-        super.reverseApplyProperties(with: target)
+    open override func applyProperties(with target: CALayer) {
+        super.applyProperties(with: target)
 
         guard let target = target as? CAGradientLayer else { return }
 
-        Self.reversePropertyMap.apply(to: self, from: target)
+        Self.propertyMap.apply(to: self, from: target)
 
         self.locations = target.locations?.map { $0.doubleValue }
     }
@@ -110,7 +103,7 @@ open class JCAGradientLayer: JCALayer {
     }
 }
 
-public class JCAGradientLayerType: ObjectConvertiblyCodable {
+public class JCAGradientLayerType: IndirectlyCodableModel {
     public typealias Target = CAGradientLayerType
 
     public var rawValue: String?

@@ -9,7 +9,7 @@
 import Foundation
 import QuartzCore
 
-public class JCGColor: ObjectConvertiblyCodable {
+public class JCGColor: IndirectlyCodableModel {
     public typealias Target = CGColor
 
     public let code: String?

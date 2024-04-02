@@ -38,7 +38,7 @@ open class JCAScrollLayer: JCALayer {
     public required convenience init(with object: CALayer) {
         self.init()
 
-        reverseApplyProperties(with: object)
+        applyProperties(with: object)
     }
 
     open override func encode(to encoder: Encoder) throws {
@@ -59,8 +59,8 @@ open class JCAScrollLayer: JCALayer {
         }
     }
 
-    open override func reverseApplyProperties(with target: CALayer) {
-        super.reverseApplyProperties(with: target)
+    open override func applyProperties(with target: CALayer) {
+        super.applyProperties(with: target)
 
         guard let target = target as? CAScrollLayer else { return }
 
@@ -76,7 +76,7 @@ open class JCAScrollLayer: JCALayer {
     }
 }
 
-public class JCAScrollLayerScrollMode: ObjectConvertiblyCodable {
+public class JCAScrollLayerScrollMode: IndirectlyCodableModel {
     public typealias Target = CAScrollLayerScrollMode
 
     public var rawValue: String?

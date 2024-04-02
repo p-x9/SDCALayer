@@ -9,7 +9,7 @@
 import QuartzCore
 
 extension CALayer: IndirectlyCodable {
-    public typealias Target = JCALayer
+    public typealias Model = JCALayer
 
     public func codable() -> JCALayer? {
         guard let layerClass = NSClassFromString(Self.codableTypeName) as? JCALayer.Type else {
@@ -21,12 +21,12 @@ extension CALayer: IndirectlyCodable {
 
     @objc
     open class var codableTypeName: String {
-        String(reflecting: Target.self)
+        String(reflecting: Model.self)
     }
 }
 
 extension CALayerCornerCurve: IndirectlyCodable {
-    public typealias Target = JCALayerCornerCurve
+    public typealias Model = JCALayerCornerCurve
 
     public func codable() -> JCALayerCornerCurve? {
         .init(with: self)
@@ -34,7 +34,7 @@ extension CALayerCornerCurve: IndirectlyCodable {
 }
 
 extension CACornerMask: IndirectlyCodable {
-    public typealias Target = JCACornerMask
+    public typealias Model = JCACornerMask
 
     public func codable() -> JCACornerMask? {
         .init(with: self)

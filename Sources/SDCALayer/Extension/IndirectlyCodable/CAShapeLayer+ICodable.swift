@@ -9,15 +9,15 @@
 import QuartzCore
 
 extension CAShapeLayer {
-    public typealias Target = JCAShapeLayer
+    public typealias Model = JCAShapeLayer
 
     open override class var codableTypeName: String {
-        String(reflecting: Target.self)
+        String(reflecting: Model.self)
     }
 }
 
 extension CAShapeLayerFillRule: IndirectlyCodable {
-    public typealias Target = JCAShapeLayerFillRule
+    public typealias Model = JCAShapeLayerFillRule
 
     public func codable() -> JCAShapeLayerFillRule? {
         .init(with: self)
@@ -25,7 +25,7 @@ extension CAShapeLayerFillRule: IndirectlyCodable {
 }
 
 extension CAShapeLayerLineCap: IndirectlyCodable {
-    public typealias Target = JCAShapeLayerLineCap
+    public typealias Model = JCAShapeLayerLineCap
 
     public func codable() -> JCAShapeLayerLineCap? {
         .init(with: self)
@@ -33,7 +33,7 @@ extension CAShapeLayerLineCap: IndirectlyCodable {
 }
 
 extension CAShapeLayerLineJoin: IndirectlyCodable {
-    public typealias Target = JCAShapeLayerLineJoin
+    public typealias Model = JCAShapeLayerLineJoin
 
     public func codable() -> JCAShapeLayerLineJoin? {
         .init(with: self)

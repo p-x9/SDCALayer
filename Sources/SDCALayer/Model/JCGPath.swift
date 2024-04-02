@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class JCGPath: ObjectConvertiblyCodable {
+public class JCGPath: IndirectlyCodableModel {
     public typealias Target = CGPath
 
     public var pathElements: [JCGPathElement]?

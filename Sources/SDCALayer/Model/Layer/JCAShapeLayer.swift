@@ -21,33 +21,19 @@ open class JCAShapeLayer: JCALayer {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: PropertyMap<CAShapeLayer, JCAShapeLayer> = [
-        \.path: .init(\.path),
-         \.fillColor: .init(\.fillColor),
-         \.fillRule: .init(\.fillRule),
-         \.strokeColor: .init(\.strokeColor),
-         \.strokeStart: .init(\.strokeStart),
-         \.strokeEnd: .init(\.strokeEnd),
-         \.lineWidth: .init(\.lineWidth),
-         \.miterLimit: .init(\.miterLimit),
-         \.lineCap: .init(\.lineCap),
-         \.lineJoin: .init(\.lineJoin),
-         \.lineDashPhase: .init(\.lineDashPhase)
-    ]
-
-    static private let reversePropertyMap: PropertyMap<JCAShapeLayer, CAShapeLayer> = [
-        \.path: .init(\.path),
-         \.fillColor: .init(\.fillColor),
-         \.fillRule: .init(\.fillRule),
-         \.strokeColor: .init(\.strokeColor),
-         \.strokeStart: .init(\.strokeStart),
-         \.strokeEnd: .init(\.strokeEnd),
-         \.lineWidth: .init(\.lineWidth),
-         \.miterLimit: .init(\.miterLimit),
-         \.lineCap: .init(\.lineCap),
-         \.lineJoin: .init(\.lineJoin),
-         \.lineDashPhase: .init(\.lineDashPhase)
-    ]
+    static private let propertyMap: PropertyMap<CAShapeLayer, JCAShapeLayer> = .init([
+        .init(\.path, \.path),
+        .init(\.fillColor, \.fillColor),
+        .init(\.fillRule, \.fillRule),
+        .init(\.strokeColor, \.strokeColor),
+        .init(\.strokeStart, \.strokeStart),
+        .init(\.strokeEnd, \.strokeEnd),
+        .init(\.lineWidth, \.lineWidth),
+        .init(\.miterLimit, \.miterLimit),
+        .init(\.lineCap, \.lineCap),
+        .init(\.lineJoin, \.lineJoin),
+        .init(\.lineDashPhase, \.lineDashPhase)
+    ])
 
     public var path: JCGPath?
 
@@ -103,7 +89,7 @@ open class JCAShapeLayer: JCALayer {
     public required convenience init(with object: CALayer) {
         self.init()
 
-        reverseApplyProperties(with: object)
+        applyProperties(with: object)
     }
 
     open override func encode(to encoder: Encoder) throws {
@@ -142,12 +128,12 @@ open class JCAShapeLayer: JCALayer {
         target.lineDashPattern = lineDashPattern?.map { NSNumber(floatLiteral: $0) }
     }
 
-    open override func reverseApplyProperties(with target: CALayer) {
-        super.reverseApplyProperties(with: target)
+    open override func applyProperties(with target: CALayer) {
+        super.applyProperties(with: target)
 
         guard let target = target as? CAShapeLayer else { return }
 
-        Self.reversePropertyMap.apply(to: self, from: target)
+        Self.propertyMap.apply(to: self, from: target)
 
         self.lineDashPattern = target.lineDashPattern?.map { $0.doubleValue }
     }
@@ -161,7 +147,7 @@ open class JCAShapeLayer: JCALayer {
     }
 }
 
-public class JCAShapeLayerFillRule: ObjectConvertiblyCodable {
+public class JCAShapeLayerFillRule: IndirectlyCodableModel {
     public typealias Target = CAShapeLayerFillRule
 
     public var rawValue: String?
@@ -176,7 +162,7 @@ public class JCAShapeLayerFillRule: ObjectConvertiblyCodable {
     }
 }
 
-public class JCAShapeLayerLineCap: ObjectConvertiblyCodable {
+public class JCAShapeLayerLineCap: IndirectlyCodableModel {
     public typealias Target = CAShapeLayerLineCap
 
     public var rawValue: String?
@@ -191,7 +177,7 @@ public class JCAShapeLayerLineCap: ObjectConvertiblyCodable {
     }
 }
 
-public class JCAShapeLayerLineJoin: ObjectConvertiblyCodable {
+public class JCAShapeLayerLineJoin: IndirectlyCodableModel {
     public typealias Target = CAShapeLayerLineJoin
 
     public var rawValue: String?

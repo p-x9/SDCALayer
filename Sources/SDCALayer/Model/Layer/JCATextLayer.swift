@@ -1,9 +1,9 @@
 //
 //  JCATextLayer.swift
-//  
+//
 //
 //  Created by p-x9 on 2022/11/14.
-//  
+//
 //
 
 import Foundation
@@ -22,27 +22,16 @@ open class JCATextLayer: JCALayer {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: PropertyMap<CATextLayer, JCATextLayer> = [
-        \.string: .init(\.string),
-         \.font: .init(\.font),
-         \.fontSize: .init(\.fontSize),
-         \.foregroundColor: .init(\.foregroundColor),
-         \.isWrapped: .init(\.isWrapped),
-         \.truncationMode: .init(\.truncationMode),
-         \.alignmentMode: .init(\.alignmentMode),
-         \.allowsFontSubpixelQuantization: .init(\.allowsFontSubpixelQuantization)
-    ]
-
-    static private let reversePropertyMap: PropertyMap<JCATextLayer, CATextLayer> = [
-        \.string: .init(\.string),
-//         \.font: .init(\.font),
-         \.fontSize: .init(\.fontSize),
-         \.foregroundColor: .init(\.foregroundColor),
-         \.isWrapped: .init(\.isWrapped),
-         \.truncationMode: .init(\.truncationMode),
-         \.alignmentMode: .init(\.alignmentMode),
-         \.allowsFontSubpixelQuantization: .init(\.allowsFontSubpixelQuantization)
-    ]
+    static private let propertyMap: PropertyMap<CATextLayer, JCATextLayer> = .init([
+        .init(\.string, \.string),
+        .init(\.font, \.font),
+        .init(\.fontSize, \.fontSize),
+        .init(\.foregroundColor, \.foregroundColor),
+        .init(\.isWrapped, \.isWrapped),
+        .init(\.truncationMode, \.truncationMode),
+        .init(\.alignmentMode, \.alignmentMode),
+        .init(\.allowsFontSubpixelQuantization, \.allowsFontSubpixelQuantization)
+    ])
 
     public var string: String?
 
@@ -88,7 +77,7 @@ open class JCATextLayer: JCALayer {
     public required convenience init(with object: CALayer) {
         self.init()
 
-        reverseApplyProperties(with: object)
+        applyProperties(with: object)
     }
 
     open override func encode(to encoder: Encoder) throws {
@@ -120,12 +109,12 @@ open class JCATextLayer: JCALayer {
         Self.propertyMap.apply(to: target, from: self)
     }
 
-    open override func reverseApplyProperties(with target: CALayer) {
-        super.reverseApplyProperties(with: target)
+    open override func applyProperties(with target: CALayer) {
+        super.applyProperties(with: target)
 
         guard let target = target as? CATextLayer else { return }
 
-        Self.reversePropertyMap.apply(to: self, from: target)
+        Self.propertyMap.apply(to: self, from: target)
 
         if let font = target[keyPath: \.font] {
             switch CFGetTypeID(font) {
@@ -150,7 +139,7 @@ open class JCATextLayer: JCALayer {
     }
 }
 
-public class JCATextLayerTruncationMode: ObjectConvertiblyCodable {
+public class JCATextLayerTruncationMode: IndirectlyCodableModel {
     public typealias Target = CATextLayerTruncationMode
 
     public var rawValue: String?
@@ -165,7 +154,7 @@ public class JCATextLayerTruncationMode: ObjectConvertiblyCodable {
     }
 }
 
-public class JCATextLayerAlignmentMode: ObjectConvertiblyCodable {
+public class JCATextLayerAlignmentMode: IndirectlyCodableModel {
     public typealias Target = CATextLayerAlignmentMode
 
     public var rawValue: String?

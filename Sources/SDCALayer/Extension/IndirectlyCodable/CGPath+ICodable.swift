@@ -9,7 +9,7 @@
 import QuartzCore
 
 extension CGPath: IndirectlyCodable {
-    public typealias Target = JCGPath
+    public typealias Model = JCGPath
 
     public func codable() -> JCGPath? {
         .init(with: self)

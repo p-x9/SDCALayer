@@ -9,15 +9,15 @@
 import QuartzCore
 
 extension CAGradientLayer {
-    public typealias Target = JCAGradientLayer
+    public typealias Model = JCAGradientLayer
 
     open override class var codableTypeName: String {
-        String(reflecting: Target.self)
+        String(reflecting: Model.self)
     }
 }
 
 extension CAGradientLayerType: IndirectlyCodable {
-    public typealias Target = JCAGradientLayerType
+    public typealias Model = JCAGradientLayerType
 
     public func codable() -> JCAGradientLayerType? {
         .init(with: self)

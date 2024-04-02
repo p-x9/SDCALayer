@@ -9,7 +9,7 @@
 import QuartzCore
 
 extension CGColor: IndirectlyCodable {
-    public typealias Target = JCGColor
+    public typealias Model = JCGColor
 
     public func applyProperties(to target: JCGColor) {}
 
