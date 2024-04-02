@@ -101,7 +101,14 @@ extension PropertyMap {
             default:
                 break
             }
+#if DEBUG
+            let result = applier.apply(value, to: target)
+            if !result {
+                print("[⚠️SDCALayer] failed to assign value(\(keyPath)")
+            }
+#else
             applier.apply(value, to: target)
+#endif
         }
     }
 }
@@ -126,7 +133,14 @@ extension PropertyMap {
             default:
                 break
             }
+#if DEBUG
+            let result = applier.apply(value, to: source)
+            if !result {
+                print("[⚠️SDCALayer] failed to assign value(\(keyPath)")
+            }
+#else
             applier.apply(value, to: source)
+#endif
         }
     }
 }
@@ -157,7 +171,14 @@ extension PropertyMap {
 
             if let keyPath = keyPath._kvcKeyPathString,
                source.shouldArchiveValue(forKey: keyPath) {
+#if DEBUG
+                let result = applier.apply(value, to: target)
+                if !result {
+                    print("[⚠️SDCALayer] failed to assign value(\(keyPath)")
+                }
+#else
                 applier.apply(value, to: target)
+#endif
             }
         }
     }
