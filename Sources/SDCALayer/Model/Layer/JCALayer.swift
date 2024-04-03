@@ -33,19 +33,19 @@ open class JCALayer: CALayerConvertible, Codable {
         .init(\.mask, \.mask),
         .init(\.masksToBounds, \.masksToBounds),
 //        .init(\.contents, \.contents),
-//        .init(\.contentsRect, \.contentsRect),
-//        .init(\.contentsGravity, \.contentsGravity),
-//        .init(\.contentsScale, \.contentsScale),
-//        .init(\.contentsCenter, \.contentsCenter),
-//        .init(\.contentsFormat, \.contentsFormat),
+        .init(\.contentsRect, \.contentsRect),
+        .init(\.contentsGravity, \.contentsGravity),
+        .init(\.contentsScale, \.contentsScale),
+        .init(\.contentsCenter, \.contentsCenter),
+        .init(\.contentsFormat, \.contentsFormat),
 //        .init(\.wantsExtendedDynamicRangeContent, \.wantsExtendedDynamicRangeContent),
-//        .init(\.minificationFilter, \.minificationFilter),
-//        .init(\.magnificationFilter, \.magnificationFilter),
-//        .init(\.minificationFilterBias, \.minificationFilterBias),
+        .init(\.minificationFilter, \.minificationFilter),
+        .init(\.magnificationFilter, \.magnificationFilter),
+        .init(\.minificationFilterBias, \.minificationFilterBias),
         .init(\.isOpaque, \.isOpaque),
         .init(\.needsDisplayOnBoundsChange, \.needsDisplayOnBoundsChange),
         .init(\.drawsAsynchronously, \.drawsAsynchronously),
-//        .init(\.edgeAntialiasingMask, \.edgeAntialiasingMask),
+        .init(\.edgeAntialiasingMask, \.edgeAntialiasingMask),
         .init(\.allowsEdgeAntialiasing, \.allowsEdgeAntialiasing),
         .init(\.backgroundColor, \.backgroundColor),
         .init(\.cornerRadius, \.cornerRadius),
@@ -92,12 +92,24 @@ open class JCALayer: CALayerConvertible, Codable {
     public var mask: SDCALayer?
     public var masksToBounds: Bool?
 
+    public var contentsRect: CGRect?
+    public var contentsGravity: JCALayerContentsGravity?
+    public var contentsScale: CGFloat?
+    public var contentsCenter: CGRect?
+    public var contentsFormat: JCALayerContentsFormat?
+
+//    public var wantsExtendedDynamicRangeContent: Bool?
+    public var minificationFilter: JCALayerContentsFilter?
+    public var magnificationFilter: JCALayerContentsFilter?
+    public var minificationFilterBias: Float?
+
     public var isOpaque: Bool?
 
     public var needsDisplayOnBoundsChange: Bool?
 
     public var drawsAsynchronously: Bool?
 
+    public var edgeAntialiasingMask: JCAEdgeAntialiasingMask?
     public var allowsEdgeAntialiasing: Bool?
 
     public var backgroundColor: JCGColor?
@@ -185,6 +197,67 @@ public class JCACornerMask: IndirectlyCodableModel {
     }
 
     public func converted() -> CACornerMask? {
+        guard let rawValue else { return nil }
+        return .init(rawValue: rawValue)
+    }
+}
+
+public class JCALayerContentsGravity: IndirectlyCodableModel {
+    public typealias Target = CALayerContentsGravity
+
+    public var rawValue: String?
+
+    required public init(with object: Target) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> Target? {
+        guard let rawValue else { return nil }
+        return .init(rawValue: rawValue)
+    }
+}
+
+public class JCALayerContentsFormat: IndirectlyCodableModel {
+    public typealias Target = CALayerContentsFormat
+
+    public var rawValue: String?
+
+    required public init(with object: Target) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> Target? {
+        guard let rawValue else { return nil }
+        return .init(rawValue: rawValue)
+    }
+}
+
+public class JCALayerContentsFilter: IndirectlyCodableModel {
+    public typealias Target = CALayerContentsFilter
+
+    public var rawValue: String?
+
+    required public init(with object: Target) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> Target? {
+        guard let rawValue else { return nil }
+        return .init(rawValue: rawValue)
+    }
+}
+
+
+public class JCAEdgeAntialiasingMask: IndirectlyCodableModel {
+    public typealias Target = CAEdgeAntialiasingMask
+
+    public var rawValue: UInt32?
+
+    required public init(with object: Target) {
+        rawValue = object.rawValue
+    }
+
+    public func converted() -> Target? {
         guard let rawValue else { return nil }
         return .init(rawValue: rawValue)
     }

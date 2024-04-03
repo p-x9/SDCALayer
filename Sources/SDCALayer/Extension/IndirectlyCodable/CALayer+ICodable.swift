@@ -40,3 +40,36 @@ extension CACornerMask: IndirectlyCodable {
         .init(with: self)
     }
 }
+
+extension CALayerContentsGravity: IndirectlyCodable {
+    public typealias Model = JCALayerContentsGravity
+
+    public func codable() -> Model? {
+        .init(with: self)
+    }
+}
+
+extension CALayerContentsFormat: IndirectlyCodable {
+    public typealias Model = JCALayerContentsFormat
+
+    public func codable() -> Model? {
+        .init(with: self)
+    }
+}
+
+extension CALayerContentsFilter: IndirectlyCodable {
+    public typealias Model = JCALayerContentsFilter
+
+    public func codable() -> Model? {
+        .init(with: self)
+    }
+}
+
+extension CAEdgeAntialiasingMask: IndirectlyCodable {
+    public typealias Model = JCAEdgeAntialiasingMask
+
+    public func codable() -> Model? {
+        .init(with: self)
+    }
+}
+
