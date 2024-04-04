@@ -118,17 +118,11 @@ open class JCAGradientLayer: JCALayer {
     }
 }
 
-public class JCAGradientLayerType: IndirectlyCodableModel {
+public final class JCAGradientLayerType: RawIndirectlyCodableModel {
     public typealias Target = CAGradientLayerType
 
-    public var rawValue: String?
-
-    required public init(with object: CAGradientLayerType) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CAGradientLayerType? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }

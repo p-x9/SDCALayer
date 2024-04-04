@@ -16,10 +16,6 @@ extension CAScrollLayer {
     }
 }
 
-extension CAScrollLayerScrollMode: IndirectlyCodable {
+extension CAScrollLayerScrollMode: RawIndirectlyCodable {
     public typealias Model = JCAScrollLayerScrollMode
-
-    public func codable() -> JCAScrollLayerScrollMode? {
-        .init(with: self)
-    }
 }

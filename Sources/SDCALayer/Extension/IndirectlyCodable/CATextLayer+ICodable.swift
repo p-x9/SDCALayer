@@ -16,18 +16,10 @@ extension CATextLayer {
     }
 }
 
-extension CATextLayerTruncationMode: IndirectlyCodable {
+extension CATextLayerTruncationMode: RawIndirectlyCodable {
     public typealias Model = JCATextLayerTruncationMode
-
-    public func codable() -> JCATextLayerTruncationMode? {
-        .init(with: self)
-    }
 }
 
-extension CATextLayerAlignmentMode: IndirectlyCodable {
+extension CATextLayerAlignmentMode: RawIndirectlyCodable {
     public typealias Model = JCATextLayerAlignmentMode
-
-    public func codable() -> JCATextLayerAlignmentMode? {
-        .init(with: self)
-    }
 }

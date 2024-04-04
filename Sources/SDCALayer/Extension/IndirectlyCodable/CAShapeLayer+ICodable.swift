@@ -16,26 +16,14 @@ extension CAShapeLayer {
     }
 }
 
-extension CAShapeLayerFillRule: IndirectlyCodable {
+extension CAShapeLayerFillRule: RawIndirectlyCodable {
     public typealias Model = JCAShapeLayerFillRule
-
-    public func codable() -> JCAShapeLayerFillRule? {
-        .init(with: self)
-    }
 }
 
-extension CAShapeLayerLineCap: IndirectlyCodable {
+extension CAShapeLayerLineCap: RawIndirectlyCodable {
     public typealias Model = JCAShapeLayerLineCap
-
-    public func codable() -> JCAShapeLayerLineCap? {
-        .init(with: self)
-    }
 }
 
-extension CAShapeLayerLineJoin: IndirectlyCodable {
+extension CAShapeLayerLineJoin: RawIndirectlyCodable {
     public typealias Model = JCAShapeLayerLineJoin
-
-    public func codable() -> JCAShapeLayerLineJoin? {
-        .init(with: self)
-    }
 }

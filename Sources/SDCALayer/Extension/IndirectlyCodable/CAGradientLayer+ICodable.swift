@@ -16,10 +16,6 @@ extension CAGradientLayer {
     }
 }
 
-extension CAGradientLayerType: IndirectlyCodable {
+extension CAGradientLayerType: RawIndirectlyCodable {
     public typealias Model = JCAGradientLayerType
-
-    public func codable() -> JCAGradientLayerType? {
-        .init(with: self)
-    }
 }

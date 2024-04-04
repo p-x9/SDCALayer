@@ -173,93 +173,56 @@ open class JCALayer: CALayerConvertible, Codable {
     }
 }
 
-public class JCALayerCornerCurve: IndirectlyCodableModel {
+public final class JCALayerCornerCurve: RawIndirectlyCodableModel {
     public typealias Target = CALayerCornerCurve
 
-    public var rawValue: String?
-
-    required public init(with object: CALayerCornerCurve) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CALayerCornerCurve? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-public class JCACornerMask: IndirectlyCodableModel {
+public final class JCACornerMask: RawIndirectlyCodableModel {
     public typealias Target = CACornerMask
 
-    public var rawValue: UInt?
-
-    required public init(with object: CACornerMask) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CACornerMask? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-public class JCALayerContentsGravity: IndirectlyCodableModel {
+public final class JCALayerContentsGravity: RawIndirectlyCodableModel {
     public typealias Target = CALayerContentsGravity
 
-    public var rawValue: String?
-
-    required public init(with object: Target) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> Target? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-public class JCALayerContentsFormat: IndirectlyCodableModel {
+public final class JCALayerContentsFormat: RawIndirectlyCodableModel {
     public typealias Target = CALayerContentsFormat
 
-    public var rawValue: String?
-
-    required public init(with object: Target) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> Target? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-public class JCALayerContentsFilter: IndirectlyCodableModel {
+public final class JCALayerContentsFilter: RawIndirectlyCodableModel {
     public typealias Target = CALayerContentsFilter
 
-    public var rawValue: String?
-
-    required public init(with object: Target) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> Target? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-
-public class JCAEdgeAntialiasingMask: IndirectlyCodableModel {
+public final class JCAEdgeAntialiasingMask: RawIndirectlyCodableModel {
     public typealias Target = CAEdgeAntialiasingMask
 
-    public var rawValue: UInt32?
-
-    required public init(with object: Target) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> Target? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }

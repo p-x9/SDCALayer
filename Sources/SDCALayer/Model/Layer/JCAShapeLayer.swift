@@ -148,47 +148,29 @@ open class JCAShapeLayer: JCALayer {
     }
 }
 
-public class JCAShapeLayerFillRule: IndirectlyCodableModel {
+public final class JCAShapeLayerFillRule: RawIndirectlyCodableModel {
     public typealias Target = CAShapeLayerFillRule
 
-    public var rawValue: String?
-
-    required public init(with object: CAShapeLayerFillRule) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CAShapeLayerFillRule? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-public class JCAShapeLayerLineCap: IndirectlyCodableModel {
+public final class JCAShapeLayerLineCap: RawIndirectlyCodableModel {
     public typealias Target = CAShapeLayerLineCap
 
-    public var rawValue: String?
-
-    required public init(with object: CAShapeLayerLineCap) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CAShapeLayerLineCap? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-public class JCAShapeLayerLineJoin: IndirectlyCodableModel {
+public final class JCAShapeLayerLineJoin: RawIndirectlyCodableModel {
     public typealias Target = CAShapeLayerLineJoin
 
-    public var rawValue: String?
-
-    required public init(with object: CAShapeLayerLineJoin) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CAShapeLayerLineJoin? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }

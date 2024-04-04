@@ -143,32 +143,20 @@ open class JCATextLayer: JCALayer {
     }
 }
 
-public class JCATextLayerTruncationMode: IndirectlyCodableModel {
+public final class JCATextLayerTruncationMode: RawIndirectlyCodableModel {
     public typealias Target = CATextLayerTruncationMode
 
-    public var rawValue: String?
-
-    required public init(with object: CATextLayerTruncationMode) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CATextLayerTruncationMode? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-public class JCATextLayerAlignmentMode: IndirectlyCodableModel {
+public final class JCATextLayerAlignmentMode: RawIndirectlyCodableModel {
     public typealias Target = CATextLayerAlignmentMode
 
-    public var rawValue: String?
-
-    required public init(with object: CATextLayerAlignmentMode) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CATextLayerAlignmentMode? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }

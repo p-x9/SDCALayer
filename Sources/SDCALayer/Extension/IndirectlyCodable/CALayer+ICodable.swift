@@ -25,51 +25,27 @@ extension CALayer: IndirectlyCodable {
     }
 }
 
-extension CALayerCornerCurve: IndirectlyCodable {
+extension CALayerCornerCurve: RawIndirectlyCodable {
     public typealias Model = JCALayerCornerCurve
-
-    public func codable() -> JCALayerCornerCurve? {
-        .init(with: self)
-    }
 }
 
-extension CACornerMask: IndirectlyCodable {
+extension CACornerMask: RawIndirectlyCodable {
     public typealias Model = JCACornerMask
-
-    public func codable() -> JCACornerMask? {
-        .init(with: self)
-    }
 }
 
-extension CALayerContentsGravity: IndirectlyCodable {
+extension CALayerContentsGravity: RawIndirectlyCodable {
     public typealias Model = JCALayerContentsGravity
-
-    public func codable() -> Model? {
-        .init(with: self)
-    }
 }
 
-extension CALayerContentsFormat: IndirectlyCodable {
+extension CALayerContentsFormat: RawIndirectlyCodable {
     public typealias Model = JCALayerContentsFormat
-
-    public func codable() -> Model? {
-        .init(with: self)
-    }
 }
 
-extension CALayerContentsFilter: IndirectlyCodable {
+extension CALayerContentsFilter: RawIndirectlyCodable {
     public typealias Model = JCALayerContentsFilter
-
-    public func codable() -> Model? {
-        .init(with: self)
-    }
 }
 
-extension CAEdgeAntialiasingMask: IndirectlyCodable {
+extension CAEdgeAntialiasingMask: RawIndirectlyCodable {
     public typealias Model = JCAEdgeAntialiasingMask
-
-    public func codable() -> Model? {
-        .init(with: self)
-    }
 }
 
