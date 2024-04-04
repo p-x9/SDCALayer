@@ -23,8 +23,8 @@ open class JCATextLayer: JCALayer {
     }
 
     static private let propertyMap: PropertyMap<CATextLayer, JCATextLayer> = .init([
-        .init(\.string, \.string),
-        .init(\.font, \.font),
+//        .init(\.string, \.string), // handle manually
+//        .init(\.font, \.font), // handle manually
         .init(\.fontSize, \.fontSize),
         .init(\.foregroundColor, \.foregroundColor),
         .init(\.isWrapped, \.isWrapped),
@@ -107,6 +107,9 @@ open class JCATextLayer: JCALayer {
         guard let target = target as? CATextLayer else { return }
 
         Self.propertyMap.apply(to: target, from: self)
+
+        target.string = string
+        target.font = font as? CFTypeRef
     }
 
     open override func applyProperties(with target: CALayer) {
@@ -116,6 +119,7 @@ open class JCATextLayer: JCALayer {
 
         Self.propertyMap.apply(to: self, from: target)
 
+        self.string = target.string as? String
         if let font = target[keyPath: \.font] {
             switch CFGetTypeID(font) {
             case CFStringGetTypeID():

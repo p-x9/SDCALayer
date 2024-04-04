@@ -55,9 +55,9 @@ extension PropertyMap {
 
 extension PropertyMap.MappingElement {
     public init<SourceValue, DestinationValue>(
-        _ sourceKeyPath: ReferenceWritableKeyPath<Source, SourceValue>,
+        _ sourceKeyPath: ReferenceWritableKeyPath<Source, SourceValue?>,
         _ destinationKeyPath: ReferenceWritableKeyPath<Destination, DestinationValue?>
-    ) where SourceValue: IndirectlyCodable, DestinationValue: IndirectlyCodableModel {
+    ) where SourceValue: IndirectlyCodable, DestinationValue: IndirectlyCodableModel, SourceValue.Model == DestinationValue, SourceValue == DestinationValue.Target {
         forwardMapElement = (sourceKeyPath, .init(destinationKeyPath))
         reverseMapElement = (destinationKeyPath, .init(sourceKeyPath))
     }
@@ -65,16 +65,15 @@ extension PropertyMap.MappingElement {
     public init<SourceValue, DestinationValue>(
         _ sourceKeyPath: ReferenceWritableKeyPath<Source, SourceValue>,
         _ destinationKeyPath: ReferenceWritableKeyPath<Destination, DestinationValue?>
-    ) where SourceValue: Sequence, DestinationValue: Sequence, SourceValue.Element: IndirectlyCodable, DestinationValue.Element: IndirectlyCodableModel {
+    ) where SourceValue: IndirectlyCodable, DestinationValue: IndirectlyCodableModel, SourceValue.Model == DestinationValue, SourceValue == DestinationValue.Target {
         forwardMapElement = (sourceKeyPath, .init(destinationKeyPath))
         reverseMapElement = (destinationKeyPath, .init(sourceKeyPath))
     }
 
-
     public init<SourceValue, DestinationValue>(
         _ sourceKeyPath: ReferenceWritableKeyPath<Source, SourceValue>,
-        _ destinationKeyPath: ReferenceWritableKeyPath<Destination, DestinationValue>
-    ) {
+        _ destinationKeyPath: ReferenceWritableKeyPath<Destination, DestinationValue?>
+    ) where SourceValue: Sequence, DestinationValue: Sequence, SourceValue.Element: IndirectlyCodable, DestinationValue.Element: IndirectlyCodableModel, SourceValue.Element.Model == DestinationValue.Element, SourceValue.Element == DestinationValue.Element.Target {
         forwardMapElement = (sourceKeyPath, .init(destinationKeyPath))
         reverseMapElement = (destinationKeyPath, .init(sourceKeyPath))
     }

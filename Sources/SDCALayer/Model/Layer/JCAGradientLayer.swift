@@ -22,8 +22,8 @@ open class JCAGradientLayer: JCALayer {
     }
 
     static private let propertyMap: PropertyMap<CAGradientLayer, JCAGradientLayer> = .init([
-        .init(\.colors, \.colors),
-//        .init(\.locations, \.locations),
+//        .init(\.colors, \.colors), // handle manually
+//        .init(\.locations, \.locations), // handle manually
         .init(\.startPoint, \.startPoint),
         .init(\.endPoint, \.endPoint),
         .init(\.type, \.type)
@@ -82,6 +82,10 @@ open class JCAGradientLayer: JCALayer {
 
         Self.propertyMap.apply(to: target, from: self)
 
+        target.colors = colors?
+            .compactMap {
+                $0.converted()
+            }
         target.locations = locations?.map { NSNumber(floatLiteral: $0) }
     }
 
@@ -92,6 +96,16 @@ open class JCAGradientLayer: JCALayer {
 
         Self.propertyMap.apply(to: self, from: target)
 
+        self.colors = target.colors?
+            .filter {
+                CFGetTypeID($0 as AnyObject) == CGColor.typeID
+            }
+            .map {
+                $0 as! CGColor
+            }
+            .compactMap {
+                $0.codable()
+            }
         self.locations = target.locations?.map { $0.doubleValue }
     }
 
