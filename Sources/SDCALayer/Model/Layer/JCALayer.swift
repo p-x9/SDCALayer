@@ -1,9 +1,9 @@
 //
 //  JCALayer.swift
-//  
+//
 //
 //  Created by p-x9 on 2022/11/06.
-//  
+//
 //
 
 import Foundation
@@ -17,78 +17,58 @@ open class JCALayer: CALayerConvertible, Codable {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: PropertyMap<CALayer, JCALayer> = [
-        \.bounds: .init(\.bounds),
-         \.position: .init(\.position),
-         \.zPosition: .init(\.zPosition),
-         \.anchorPoint: .init(\.anchorPoint),
-         \.anchorPointZ: .init(\.anchorPointZ),
-         \.transform: .init(\.transform),
-         \.frame: .init(\.frame),
-         \.isHidden: .init(\.isHidden),
-         \.isDoubleSided: .init(\.isDoubleSided),
-         \.isGeometryFlipped: .init(\.isGeometryFlipped),
-         \.sublayerTransform: .init(\.sublayerTransform),
-         \.mask: .init(\.mask),
-         \.masksToBounds: .init(\.masksToBounds),
-         \.isOpaque: .init(\.isOpaque),
-         \.needsDisplayOnBoundsChange: .init(\.needsDisplayOnBoundsChange),
-         \.drawsAsynchronously: .init(\.drawsAsynchronously),
-         \.allowsEdgeAntialiasing: .init(\.allowsEdgeAntialiasing),
-         \.backgroundColor: .init(\.backgroundColor),
-         \.cornerRadius: .init(\.cornerRadius),
-         \.maskedCorners: .init(\.maskedCorners),
-         \.cornerCurve: .init(\.cornerCurve),
-         \.borderWidth: .init(\.borderWidth),
-         \.borderColor: .init(\.borderColor),
-         \.opacity: .init(\.opacity),
-         \.allowsGroupOpacity: .init(\.allowsGroupOpacity),
-         \.shouldRasterize: .init(\.shouldRasterize),
-         \.rasterizationScale: .init(\.rasterizationScale),
-         \.shadowColor: .init(\.shadowColor),
-         \.shadowOpacity: .init(\.shadowOpacity),
-         \.shadowOffset: .init(\.shadowOffset),
-         \.shadowRadius: .init(\.shadowRadius),
-         \.shadowPath: .init(\.shadowPath),
-         \.name: .init(\.name)
-    ]
-
-    static private let reversePropertyMap: PropertyMap<JCALayer, CALayer> = [
-        \.bounds: .init(\.bounds),
-         \.position: .init(\.position),
-         \.zPosition: .init(\.zPosition),
-         \.anchorPoint: .init(\.anchorPoint),
-         \.anchorPointZ: .init(\.anchorPointZ),
-         \.transform: .init(\.transform),
-         \.frame: .init(\.frame),
-         \.isHidden: .init(\.isHidden),
-         \.isDoubleSided: .init(\.isDoubleSided),
-         \.isGeometryFlipped: .init(\.isGeometryFlipped),
-         \.sublayerTransform: .init(\.sublayerTransform),
-         \.mask: .init(\.mask),
-         \.masksToBounds: .init(\.masksToBounds),
-         \.isOpaque: .init(\.isOpaque),
-         \.needsDisplayOnBoundsChange: .init(\.needsDisplayOnBoundsChange),
-         \.drawsAsynchronously: .init(\.drawsAsynchronously),
-         \.allowsEdgeAntialiasing: .init(\.allowsEdgeAntialiasing),
-         \.backgroundColor: .init(\.backgroundColor),
-         \.cornerRadius: .init(\.cornerRadius),
-         \.maskedCorners: .init(\.maskedCorners),
-         \.cornerCurve: .init(\.cornerCurve),
-         \.borderWidth: .init(\.borderWidth),
-         \.borderColor: .init(\.borderColor),
-         \.opacity: .init(\.opacity),
-         \.allowsGroupOpacity: .init(\.allowsGroupOpacity),
-         \.shouldRasterize: .init(\.shouldRasterize),
-         \.rasterizationScale: .init(\.rasterizationScale),
-         \.shadowColor: .init(\.shadowColor),
-         \.shadowOpacity: .init(\.shadowOpacity),
-         \.shadowOffset: .init(\.shadowOffset),
-         \.shadowRadius: .init(\.shadowRadius),
-         \.shadowPath: .init(\.shadowPath),
-         \.name: .init(\.name),
-         \.sublayers: .init(\.sublayers)
-    ]
+    static private let propertyMap: PropertyMap<CALayer, JCALayer> = .init([
+        .init(\.bounds, \.bounds),
+        .init(\.position, \.position),
+        .init(\.zPosition, \.zPosition),
+        .init(\.anchorPoint, \.anchorPoint),
+        .init(\.anchorPointZ, \.anchorPointZ),
+        .init(\.transform, \.transform),
+        .init(\.frame, \.frame),
+        .init(\.isHidden, \.isHidden),
+        .init(\.isDoubleSided, \.isDoubleSided),
+        .init(\.isGeometryFlipped, \.isGeometryFlipped),
+//        .init(\.sublayers, \.sublayers), // handle manually
+        .init(\.sublayerTransform, \.sublayerTransform),
+//        .init(\.mask, \.mask), // handle manually
+        .init(\.masksToBounds, \.masksToBounds),
+//        .init(\.contents, \.contents),
+        .init(\.contentsRect, \.contentsRect),
+        .init(\.contentsGravity, \.contentsGravity),
+        .init(\.contentsScale, \.contentsScale),
+        .init(\.contentsCenter, \.contentsCenter),
+        .init(\.contentsFormat, \.contentsFormat),
+//        .init(\.wantsExtendedDynamicRangeContent, \.wantsExtendedDynamicRangeContent),
+        .init(\.minificationFilter, \.minificationFilter),
+        .init(\.magnificationFilter, \.magnificationFilter),
+        .init(\.minificationFilterBias, \.minificationFilterBias),
+        .init(\.isOpaque, \.isOpaque),
+        .init(\.needsDisplayOnBoundsChange, \.needsDisplayOnBoundsChange),
+        .init(\.drawsAsynchronously, \.drawsAsynchronously),
+        .init(\.edgeAntialiasingMask, \.edgeAntialiasingMask),
+        .init(\.allowsEdgeAntialiasing, \.allowsEdgeAntialiasing),
+        .init(\.backgroundColor, \.backgroundColor),
+        .init(\.cornerRadius, \.cornerRadius),
+        .init(\.maskedCorners, \.maskedCorners),
+        .init(\.cornerCurve, \.cornerCurve),
+        .init(\.borderWidth, \.borderWidth),
+        .init(\.borderColor, \.borderColor),
+        .init(\.opacity, \.opacity),
+        .init(\.allowsGroupOpacity, \.allowsGroupOpacity),
+//        .init(\.compositingFilter, \.compositingFilter),
+//        .init(\.filters, \.filters),
+//        .init(\.backgroundFilters, \.backgroundFilters),
+        .init(\.shouldRasterize, \.shouldRasterize),
+        .init(\.rasterizationScale, \.rasterizationScale),
+        .init(\.shadowColor, \.shadowColor),
+        .init(\.shadowOpacity, \.shadowOpacity),
+        .init(\.shadowOffset, \.shadowOffset),
+        .init(\.shadowRadius, \.shadowRadius),
+        .init(\.shadowPath, \.shadowPath),
+//        .init(\.actions, \.actions),
+        .init(\.name, \.name),
+//        .init(\.style, \.style)
+    ])
 
     public var bounds: CGRect?
     public var position: CGPoint?
@@ -112,12 +92,24 @@ open class JCALayer: CALayerConvertible, Codable {
     public var mask: SDCALayer?
     public var masksToBounds: Bool?
 
+    public var contentsRect: CGRect?
+    public var contentsGravity: JCALayerContentsGravity?
+    public var contentsScale: CGFloat?
+    public var contentsCenter: CGRect?
+    public var contentsFormat: JCALayerContentsFormat?
+
+//    public var wantsExtendedDynamicRangeContent: Bool?
+    public var minificationFilter: JCALayerContentsFilter?
+    public var magnificationFilter: JCALayerContentsFilter?
+    public var minificationFilterBias: Float?
+
     public var isOpaque: Bool?
 
     public var needsDisplayOnBoundsChange: Bool?
 
     public var drawsAsynchronously: Bool?
 
+    public var edgeAntialiasingMask: JCAEdgeAntialiasingMask?
     public var allowsEdgeAntialiasing: Bool?
 
     public var backgroundColor: JCGColor?
@@ -150,20 +142,21 @@ open class JCALayer: CALayerConvertible, Codable {
     public required convenience init(with object: CALayer) {
         self.init()
 
-        reverseApplyProperties(with: object)
+        applyProperties(with: object)
     }
 
     open func applyProperties(to target: CALayer) {
         Self.propertyMap.apply(to: target, from: self)
 
+        target.mask = mask?.convertToLayer()
         sublayers?.compactMap { $0.convertToLayer() }
             .forEach {
                 target.addSublayer($0)
             }
     }
 
-    open func reverseApplyProperties(with target: CALayer) {
-        Self.reversePropertyMap.apply(to: self, from: target)
+    open func applyProperties(with target: CALayer) {
+        Self.propertyMap.apply(to: self, from: target)
 
         self.mask = SDCALayer(model: target.mask?.codable())
         self.sublayers = target.sublayers?.compactMap {
@@ -180,33 +173,56 @@ open class JCALayer: CALayerConvertible, Codable {
     }
 }
 
-public class JCALayerCornerCurve: ObjectConvertiblyCodable {
+public final class JCALayerCornerCurve: RawIndirectlyCodableModel {
     public typealias Target = CALayerCornerCurve
 
-    public var rawValue: String?
-
-    required public init(with object: CALayerCornerCurve) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CALayerCornerCurve? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-
-public class JCACornerMask: ObjectConvertiblyCodable {
+public final class JCACornerMask: RawIndirectlyCodableModel {
     public typealias Target = CACornerMask
 
-    public var rawValue: UInt?
-
-    required public init(with object: CACornerMask) {
-        rawValue = object.rawValue
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
+}
 
-    public func converted() -> CACornerMask? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+public final class JCALayerContentsGravity: RawIndirectlyCodableModel {
+    public typealias Target = CALayerContentsGravity
+
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
+    }
+}
+
+public final class JCALayerContentsFormat: RawIndirectlyCodableModel {
+    public typealias Target = CALayerContentsFormat
+
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
+    }
+}
+
+public final class JCALayerContentsFilter: RawIndirectlyCodableModel {
+    public typealias Target = CALayerContentsFilter
+
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
+    }
+}
+
+public final class JCAEdgeAntialiasingMask: RawIndirectlyCodableModel {
+    public typealias Target = CAEdgeAntialiasingMask
+
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }

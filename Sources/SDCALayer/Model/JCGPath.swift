@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class JCGPath: ObjectConvertiblyCodable {
+public class JCGPath: IndirectlyCodableModel {
     public typealias Target = CGPath
 
     public var pathElements: [JCGPathElement]?
@@ -29,7 +29,7 @@ public class JCGPath: ObjectConvertiblyCodable {
             .filter {
                 let isValid = $0.elementType != nil && $0.elementType!.numberOfPoints <= $0.points.count
                 if !isValid {
-                    print("⚠️[warning] SDCALayer invalid path element")
+                    print("⚠️ [SDCALayer] invalid path element")
                 }
                 return isValid
             }
@@ -56,7 +56,6 @@ public class JCGPath: ObjectConvertiblyCodable {
         return path
     }
 }
-
 
 public struct JCGPathElement: Codable {
     public var type: String

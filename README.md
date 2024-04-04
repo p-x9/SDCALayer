@@ -145,8 +145,8 @@ class JAALayer: JCALayer {
 
     // apply properties to model from target
     // targe -> model
-    public override func reverseApplyProperties(with target: CALayer) {
-        super.reverseApplyProperties(with: target)
+    public override func applyProperties(with target: CALayer) {
+        super.applyProperties(with: target)
 
         guard let target = target as? AALayer else { return }
 

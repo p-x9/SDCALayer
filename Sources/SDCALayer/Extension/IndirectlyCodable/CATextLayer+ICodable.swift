@@ -9,25 +9,17 @@
 import QuartzCore
 
 extension CATextLayer {
-    public typealias Target = JCATextLayer
+    public typealias Model = JCATextLayer
 
     open override class var codableTypeName: String {
-        String(reflecting: Target.self)
+        String(reflecting: Model.self)
     }
 }
 
-extension CATextLayerTruncationMode: IndirectlyCodable {
-    public typealias Target = JCATextLayerTruncationMode
-
-    public func codable() -> JCATextLayerTruncationMode? {
-        .init(with: self)
-    }
+extension CATextLayerTruncationMode: RawIndirectlyCodable {
+    public typealias Model = JCATextLayerTruncationMode
 }
 
-extension CATextLayerAlignmentMode: IndirectlyCodable {
-    public typealias Target = JCATextLayerAlignmentMode
-
-    public func codable() -> JCATextLayerAlignmentMode? {
-        .init(with: self)
-    }
+extension CATextLayerAlignmentMode: RawIndirectlyCodable {
+    public typealias Model = JCATextLayerAlignmentMode
 }

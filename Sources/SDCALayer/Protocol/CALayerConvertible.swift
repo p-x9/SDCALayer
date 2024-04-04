@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol CALayerConvertible: ObjectConvertiblyCodable {
+public protocol CALayerConvertible: IndirectlyCodableModel {
     func convertToLayer() -> Target?
 }
 

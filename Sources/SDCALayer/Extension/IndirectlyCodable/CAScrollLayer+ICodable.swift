@@ -9,17 +9,13 @@
 import QuartzCore
 
 extension CAScrollLayer {
-    public typealias Target = JCAScrollLayer
+    public typealias Model = JCAScrollLayer
 
     open override class var codableTypeName: String {
-        String(reflecting: Target.self)
+        String(reflecting: Model.self)
     }
 }
 
-extension CAScrollLayerScrollMode: IndirectlyCodable {
-    public typealias Target = JCAScrollLayerScrollMode
-
-    public func codable() -> JCAScrollLayerScrollMode? {
-        .init(with: self)
-    }
+extension CAScrollLayerScrollMode: RawIndirectlyCodable {
+    public typealias Model = JCAScrollLayerScrollMode
 }

@@ -12,11 +12,11 @@ let package = Package(
         .library(
             name: "SDCALayer",
             targets: ["SDCALayer"]
-        ),
+        )
     ],
     dependencies: [
-        .package(url: "https://github.com/p-x9/IndirectlyCodable.git", .upToNextMinor(from: "0.0.1")),
-        .package(url: "https://github.com/p-x9/KeyPathValue.git", .upToNextMinor(from: "0.0.1")),
+        .package(url: "https://github.com/p-x9/IndirectlyCodable.git", from: "0.1.0"),
+        .package(url: "https://github.com/p-x9/KeyPathValue.git", from: "0.1.0"),
         .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.1")
     ],
     targets: [
@@ -31,6 +31,6 @@ let package = Package(
         .testTarget(
             name: "SDCALayerTests",
             dependencies: ["SDCALayer"]
-        ),
+        )
     ]
 )

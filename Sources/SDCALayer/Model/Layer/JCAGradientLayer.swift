@@ -1,9 +1,9 @@
 //
 //  JCAGradientLayer.swift
-//  
+//
 //
 //  Created by p-x9 on 2022/11/11.
-//  
+//
 //
 
 import Foundation
@@ -14,26 +14,24 @@ open class JCAGradientLayer: JCALayer {
     public typealias Target = CAGradientLayer
 
     private enum CodingKeys: String, CodingKey {
-        case colors, locations, startPoint, endPoint, type
+        case colors
+        case locations
+        case startPoint
+        case endPoint
+        case type
     }
 
     open override class var targetTypeName: String {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: PropertyMap<CAGradientLayer, JCAGradientLayer> = [
-        \.colors: .init(\.colors),
-         \.startPoint: .init(\.startPoint),
-         \.endPoint: .init(\.endPoint),
-         \.type: .init(\.type)
-    ]
-
-    static private let reversePropertyMap: PropertyMap<JCAGradientLayer, CAGradientLayer> = [
-        \.colors: .init(\.colors),
-         \.startPoint: .init(\.startPoint),
-         \.endPoint: .init(\.endPoint),
-         \.type: .init(\.type)
-    ]
+    static private let propertyMap: PropertyMap<CAGradientLayer, JCAGradientLayer> = .init([
+//        .init(\.colors, \.colors), // handle manually
+//        .init(\.locations, \.locations), // handle manually
+        .init(\.startPoint, \.startPoint),
+        .init(\.endPoint, \.endPoint),
+        .init(\.type, \.type)
+    ])
 
     public var colors: [JCGColor]?
     public var locations: [Double]?
@@ -64,7 +62,7 @@ open class JCAGradientLayer: JCALayer {
     public required convenience init(with object: CALayer) {
         self.init()
 
-        reverseApplyProperties(with: object)
+        applyProperties(with: object)
     }
 
     open override func encode(to encoder: Encoder) throws {
@@ -88,16 +86,30 @@ open class JCAGradientLayer: JCALayer {
 
         Self.propertyMap.apply(to: target, from: self)
 
+        target.colors = colors?
+            .compactMap {
+                $0.converted()
+            }
         target.locations = locations?.map { NSNumber(floatLiteral: $0) }
     }
 
-    open override func reverseApplyProperties(with target: CALayer) {
-        super.reverseApplyProperties(with: target)
+    open override func applyProperties(with target: CALayer) {
+        super.applyProperties(with: target)
 
         guard let target = target as? CAGradientLayer else { return }
 
-        Self.reversePropertyMap.apply(to: self, from: target)
+        Self.propertyMap.apply(to: self, from: target)
 
+        self.colors = target.colors?
+            .filter {
+                CFGetTypeID($0 as AnyObject) == CGColor.typeID
+            }
+            .map {
+                $0 as! CGColor
+            }
+            .compactMap {
+                $0.codable()
+            }
         self.locations = target.locations?.map { $0.doubleValue }
     }
 
@@ -110,17 +122,11 @@ open class JCAGradientLayer: JCALayer {
     }
 }
 
-public class JCAGradientLayerType: ObjectConvertiblyCodable {
+public final class JCAGradientLayerType: RawIndirectlyCodableModel {
     public typealias Target = CAGradientLayerType
 
-    public var rawValue: String?
-
-    required public init(with object: CAGradientLayerType) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CAGradientLayerType? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }

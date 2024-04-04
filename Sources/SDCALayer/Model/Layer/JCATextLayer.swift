@@ -1,9 +1,9 @@
 //
 //  JCATextLayer.swift
-//  
+//
 //
 //  Created by p-x9 on 2022/11/14.
-//  
+//
 //
 
 import Foundation
@@ -15,34 +15,30 @@ open class JCATextLayer: JCALayer {
     typealias Target = CATextLayer
 
     private enum CodingKeys: String, CodingKey {
-        case string, font, fontSize, foregroundColor, isWrapped, truncationMode, alignmentMode, allowsFontSubpixelQuantization
+        case string
+        case font
+        case fontSize
+        case foregroundColor
+        case isWrapped
+        case truncationMode
+        case alignmentMode
+        case allowsFontSubpixelQuantization
     }
 
     open override class var targetTypeName: String {
         String(reflecting: Target.self)
     }
 
-    static private let propertyMap: PropertyMap<CATextLayer, JCATextLayer> = [
-        \.string: .init(\.string),
-         \.font: .init(\.font),
-         \.fontSize: .init(\.fontSize),
-         \.foregroundColor: .init(\.foregroundColor),
-         \.isWrapped: .init(\.isWrapped),
-         \.truncationMode: .init(\.truncationMode),
-         \.alignmentMode: .init(\.alignmentMode),
-         \.allowsFontSubpixelQuantization: .init(\.allowsFontSubpixelQuantization)
-    ]
-
-    static private let reversePropertyMap: PropertyMap<JCATextLayer, CATextLayer> = [
-        \.string: .init(\.string),
-//         \.font: .init(\.font),
-         \.fontSize: .init(\.fontSize),
-         \.foregroundColor: .init(\.foregroundColor),
-         \.isWrapped: .init(\.isWrapped),
-         \.truncationMode: .init(\.truncationMode),
-         \.alignmentMode: .init(\.alignmentMode),
-         \.allowsFontSubpixelQuantization: .init(\.allowsFontSubpixelQuantization)
-    ]
+    static private let propertyMap: PropertyMap<CATextLayer, JCATextLayer> = .init([
+//        .init(\.string, \.string), // handle manually
+//        .init(\.font, \.font), // handle manually
+        .init(\.fontSize, \.fontSize),
+        .init(\.foregroundColor, \.foregroundColor),
+        .init(\.isWrapped, \.isWrapped),
+        .init(\.truncationMode, \.truncationMode),
+        .init(\.alignmentMode, \.alignmentMode),
+        .init(\.allowsFontSubpixelQuantization, \.allowsFontSubpixelQuantization)
+    ])
 
     public var string: String?
 
@@ -88,7 +84,7 @@ open class JCATextLayer: JCALayer {
     public required convenience init(with object: CALayer) {
         self.init()
 
-        reverseApplyProperties(with: object)
+        applyProperties(with: object)
     }
 
     open override func encode(to encoder: Encoder) throws {
@@ -118,15 +114,19 @@ open class JCATextLayer: JCALayer {
         guard let target = target as? CATextLayer else { return }
 
         Self.propertyMap.apply(to: target, from: self)
+
+        target.string = string
+        target.font = font as? CFTypeRef
     }
 
-    open override func reverseApplyProperties(with target: CALayer) {
-        super.reverseApplyProperties(with: target)
+    open override func applyProperties(with target: CALayer) {
+        super.applyProperties(with: target)
 
         guard let target = target as? CATextLayer else { return }
 
-        Self.reversePropertyMap.apply(to: self, from: target)
+        Self.propertyMap.apply(to: self, from: target)
 
+        self.string = target.string as? String
         if let font = target[keyPath: \.font] {
             switch CFGetTypeID(font) {
             case CFStringGetTypeID():
@@ -150,32 +150,20 @@ open class JCATextLayer: JCALayer {
     }
 }
 
-public class JCATextLayerTruncationMode: ObjectConvertiblyCodable {
+public final class JCATextLayerTruncationMode: RawIndirectlyCodableModel {
     public typealias Target = CATextLayerTruncationMode
 
-    public var rawValue: String?
-
-    required public init(with object: CATextLayerTruncationMode) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CATextLayerTruncationMode? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
 
-public class JCATextLayerAlignmentMode: ObjectConvertiblyCodable {
+public final class JCATextLayerAlignmentMode: RawIndirectlyCodableModel {
     public typealias Target = CATextLayerAlignmentMode
 
-    public var rawValue: String?
-
-    required public init(with object: CATextLayerAlignmentMode) {
-        rawValue = object.rawValue
-    }
-
-    public func converted() -> CATextLayerAlignmentMode? {
-        guard let rawValue else { return nil }
-        return .init(rawValue: rawValue)
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
     }
 }
