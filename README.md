@@ -13,6 +13,7 @@ Server-Driven CALayer
 - CATextLayer
 - CAScrollLayer
 - CAGradientLayer
+- CAReplicatorLayer
 
 ### JSON to CALayer
 ```swift
