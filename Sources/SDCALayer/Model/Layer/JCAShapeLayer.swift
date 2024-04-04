@@ -14,7 +14,18 @@ open class JCAShapeLayer: JCALayer {
     typealias Target = CAShapeLayer
 
     private enum CodingKeys: String, CodingKey {
-        case path, fillColor, fillRule, strokeColor, strokeStart, strokeEnd, lineWidth, miterLimit, lineCap, lineJoin, lineDashPhase, lineDashPattern
+        case path
+        case fillColor
+        case fillRule
+        case strokeColor
+        case strokeStart
+        case strokeEnd
+        case lineWidth
+        case miterLimit
+        case lineCap
+        case lineJoin
+        case lineDashPhase
+        case lineDashPattern
     }
 
     open override class var targetTypeName: String {

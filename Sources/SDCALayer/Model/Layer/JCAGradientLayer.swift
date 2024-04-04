@@ -14,7 +14,11 @@ open class JCAGradientLayer: JCALayer {
     public typealias Target = CAGradientLayer
 
     private enum CodingKeys: String, CodingKey {
-        case colors, locations, startPoint, endPoint, type
+        case colors
+        case locations
+        case startPoint
+        case endPoint
+        case type
     }
 
     open override class var targetTypeName: String {

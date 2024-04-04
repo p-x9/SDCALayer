@@ -15,7 +15,14 @@ open class JCATextLayer: JCALayer {
     typealias Target = CATextLayer
 
     private enum CodingKeys: String, CodingKey {
-        case string, font, fontSize, foregroundColor, isWrapped, truncationMode, alignmentMode, allowsFontSubpixelQuantization
+        case string
+        case font
+        case fontSize
+        case foregroundColor
+        case isWrapped
+        case truncationMode
+        case alignmentMode
+        case allowsFontSubpixelQuantization
     }
 
     open override class var targetTypeName: String {
