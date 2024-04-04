@@ -28,9 +28,9 @@ open class JCALayer: CALayerConvertible, Codable {
         .init(\.isHidden, \.isHidden),
         .init(\.isDoubleSided, \.isDoubleSided),
         .init(\.isGeometryFlipped, \.isGeometryFlipped),
-        .init(\.sublayers, \.sublayers),
+//        .init(\.sublayers, \.sublayers), // handle manually
         .init(\.sublayerTransform, \.sublayerTransform),
-        .init(\.mask, \.mask),
+//        .init(\.mask, \.mask), // handle manually
         .init(\.masksToBounds, \.masksToBounds),
 //        .init(\.contents, \.contents),
         .init(\.contentsRect, \.contentsRect),
@@ -148,6 +148,7 @@ open class JCALayer: CALayerConvertible, Codable {
     open func applyProperties(to target: CALayer) {
         Self.propertyMap.apply(to: target, from: self)
 
+        target.mask = mask?.convertToLayer()
         sublayers?.compactMap { $0.convertToLayer() }
             .forEach {
                 target.addSublayer($0)
