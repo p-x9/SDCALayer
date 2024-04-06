@@ -14,7 +14,7 @@ import IndirectlyCodable
 open class JCAAnimation: IndirectlyCodableModel, Codable {
     public typealias Target = CAAnimation
 
-    public static var targetTypeName: String {
+    open class var targetTypeName: String {
         String(reflecting: Target.self)
     }
 
