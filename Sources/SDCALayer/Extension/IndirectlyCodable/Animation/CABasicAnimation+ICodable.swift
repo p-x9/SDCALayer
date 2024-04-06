@@ -15,4 +15,3 @@ extension CABasicAnimation {
         String(reflecting: Model.self)
     }
 }
-

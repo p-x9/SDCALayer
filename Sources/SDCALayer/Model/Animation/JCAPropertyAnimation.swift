@@ -82,7 +82,7 @@ open class JCAPropertyAnimation: JCAAnimation {
         Self.propertyMap.apply(to: self, from: target)
     }
 
-    open override func converted() -> CAAnimation? {
+    open override func convertToAnimation() -> CAAnimation? {
         let animation = CAPropertyAnimation()
 
         self.applyProperties(to: animation)

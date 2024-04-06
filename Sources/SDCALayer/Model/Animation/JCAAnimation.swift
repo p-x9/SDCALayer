@@ -11,7 +11,7 @@ import QuartzCore
 import KeyPathValue
 import IndirectlyCodable
 
-open class JCAAnimation: IndirectlyCodableModel, Codable {
+open class JCAAnimation: CAAnimationConvertible, Codable {
     public typealias Target = CAAnimation
 
     open class var targetTypeName: String {
@@ -41,7 +41,7 @@ open class JCAAnimation: IndirectlyCodableModel, Codable {
         Self.propertyMap.apply(to: self, from: target)
     }
 
-    public func converted() -> Target? {
+    public func convertToAnimation() -> Target? {
         let animation = CAAnimation()
 
         self.applyProperties(to: animation)

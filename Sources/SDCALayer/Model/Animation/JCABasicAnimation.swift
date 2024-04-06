@@ -71,7 +71,7 @@ open class JCABasicAnimation: JCAPropertyAnimation {
         byValue = .init(target.byValue)
     }
 
-    open override func converted() -> CAAnimation? {
+    open override func convertToAnimation() -> CAAnimation? {
         let animation = CABasicAnimation()
 
         self.applyProperties(to: animation)
