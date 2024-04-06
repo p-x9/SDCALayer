@@ -6,9 +6,9 @@
 //  
 //
 
-import Foundation
+import QuartzCore
 
-public protocol CALayerConvertible: IndirectlyCodableModel {
+public protocol CALayerConvertible: IndirectlyCodableModel where Target: CALayer {
     func convertToLayer() -> Target?
 }
 
