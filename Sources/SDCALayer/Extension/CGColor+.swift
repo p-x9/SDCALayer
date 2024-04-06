@@ -35,7 +35,7 @@ extension CGColor {
     }
 
     private var rgbaComponents: [CGFloat] {
-        guard let colorSpace = CGColorSpace(name: CGColorSpace.extendedSRGB),
+        guard let colorSpace = CGColorSpace(name: CGColorSpace.sRGB),
               let converted = self.converted(to: colorSpace, intent: .defaultIntent, options: nil),
               let components = converted.components,
               converted.numberOfComponents == 4 else {
