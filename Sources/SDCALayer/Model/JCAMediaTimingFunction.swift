@@ -28,11 +28,13 @@ public enum JCAMediaTimingFunction: IndirectlyCodableModel, Codable {
             case .easeInEaseOut: self = .easeInEaseOut
             case .default: self = .default
             default:
-                break
+                let points = target.controlPoints
+                self = .other(c1: points[0], c2: points[1])
             }
+        } else {
+            let points = target.controlPoints
+            self = .other(c1: points[0], c2: points[1])
         }
-        let points = target.controlPoints
-        self = .other(c1: points[0], c2: points[1])
     }
 
     public init(from decoder: Decoder) throws {
@@ -49,9 +51,10 @@ public enum JCAMediaTimingFunction: IndirectlyCodableModel, Codable {
                 debugDescription: "Invalid function name: \(string)"
             )
             }
+        } else {
+            let points = try container.decode([CGPoint].self)
+            self = .other(c1: points[0], c2: points[1])
         }
-        let points = try container.decode([CGPoint].self)
-        self = .other(c1: points[0], c2: points[1])
     }
 
     public func encode(to encoder: Encoder) throws {
