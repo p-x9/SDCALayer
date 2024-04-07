@@ -19,9 +19,28 @@ open class JCAAnimation: CAAnimationConvertible, Codable {
     }
 
     static private let propertyMap: PropertyMap<CAAnimation, JCAAnimation> = .init([
+        .init(\.beginTime, \.beginTime),
+        .init(\.duration, \.duration),
+        .init(\.speed, \.speed),
+        .init(\.timeOffset, \.timeOffset),
+        .init(\.repeatCount, \.repeatCount),
+        .init(\.repeatDuration, \.repeatDuration),
+        .init(\.autoreverses, \.autoreverses),
+        .init(\.fillMode, \.fillMode),
+
         .init(\.timingFunction, \.timingFunction),
         .init(\.isRemovedOnCompletion, \.isRemovedOnCompletion)
     ])
+
+    /* CAMediaTiming */
+    public var beginTime: CFTimeInterval?
+    public var duration: CFTimeInterval?
+    public var speed: Float?
+    public var timeOffset: CFTimeInterval?
+    public var repeatCount: Float?
+    public var repeatDuration: CFTimeInterval?
+    public var autoreverses: Bool?
+    public var fillMode: JCAMediaTimingFillMode?
 
     public var timingFunction: JCAMediaTimingFunction?
     public var isRemovedOnCompletion: Bool?
@@ -49,3 +68,11 @@ open class JCAAnimation: CAAnimationConvertible, Codable {
     }
 }
 
+public final class JCAMediaTimingFillMode: RawIndirectlyCodableModel {
+    public typealias Target = CAMediaTimingFillMode
+
+    public var rawValue: Target.RawValue
+    public required init(rawValue: Target.RawValue) {
+        self.rawValue = rawValue
+    }
+}

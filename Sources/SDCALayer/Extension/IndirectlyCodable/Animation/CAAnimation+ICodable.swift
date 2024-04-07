@@ -25,3 +25,7 @@ extension CAAnimation: IndirectlyCodable {
         String(reflecting: Model.self)
     }
 }
+
+extension CAMediaTimingFillMode: RawIndirectlyCodable {
+    public typealias Model = JCAMediaTimingFillMode
+}
