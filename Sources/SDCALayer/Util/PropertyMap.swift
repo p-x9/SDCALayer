@@ -77,6 +77,14 @@ extension PropertyMap.MappingElement {
         forwardMapElement = (sourceKeyPath, .init(destinationKeyPath))
         reverseMapElement = (destinationKeyPath, .init(sourceKeyPath))
     }
+
+    public init<SourceValue, DestinationValue>(
+        _ sourceKeyPath: ReferenceWritableKeyPath<Source, SourceValue?>,
+        _ destinationKeyPath: ReferenceWritableKeyPath<Destination, DestinationValue?>
+    ) where SourceValue: Sequence, DestinationValue: Sequence, SourceValue.Element: IndirectlyCodable, DestinationValue.Element: IndirectlyCodableModel, SourceValue.Element.Model == DestinationValue.Element, SourceValue.Element == DestinationValue.Element.Target {
+        forwardMapElement = (sourceKeyPath, .init(destinationKeyPath))
+        reverseMapElement = (destinationKeyPath, .init(sourceKeyPath))
+    }
 }
 
 extension PropertyMap {
