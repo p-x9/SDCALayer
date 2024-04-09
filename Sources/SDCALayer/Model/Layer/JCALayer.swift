@@ -137,6 +137,8 @@ open class JCALayer: CALayerConvertible, Codable {
 
     public var name: String?
 
+    public var animations: [String: SDCAAnimation]?
+
     public init() {}
 
     public required convenience init(with object: CALayer) {
@@ -153,6 +155,14 @@ open class JCALayer: CALayerConvertible, Codable {
             .forEach {
                 target.addSublayer($0)
             }
+
+        if let animations {
+            for (key, animation) in animations {
+                if let animation = animation.converted() {
+                    target.add(animation, forKey: key)
+                }
+            }
+        }
     }
 
     open func applyProperties(with target: CALayer) {
@@ -161,6 +171,19 @@ open class JCALayer: CALayerConvertible, Codable {
         self.mask = SDCALayer(model: target.mask?.codable())
         self.sublayers = target.sublayers?.compactMap {
             SDCALayer(model: $0.codable())
+        }
+
+        if let animationKeys = target.animationKeys(),
+           !animationKeys.isEmpty {
+            var animations: [String: SDCAAnimation] = [:]
+            for key in animationKeys {
+                guard let animation = target.animation(forKey: key),
+                      let model = animation.codable() else {
+                    continue
+                }
+                animations[key] = .init(model: model)
+            }
+            self.animations = animations
         }
     }
 
