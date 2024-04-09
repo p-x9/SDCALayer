@@ -1,0 +1,146 @@
+{
+  "class": "CAReplicatorLayer",
+  "layerModel": {
+    "sublayers": [
+      {
+        "layerModel": {
+          "position": [
+            100,
+            100
+          ],
+          "bounds": [
+            [
+              0,
+              0
+            ],
+            [
+              200,
+              200
+            ]
+          ],
+          "animations": {
+            "ripple": {
+              "class": "CAAnimationGroup",
+              "animationModel": {
+                "beginTime": 0,
+                "duration": 3,
+                "timeOffset": 0,
+                "autoreverses": false,
+                "fillMode": {
+                  "rawValue": "removed"
+                },
+                "isRemovedOnCompletion": false,
+                "speed": 1,
+                "repeatDuration": 0,
+                "repeatCount": 3.4028235e+38,
+                "animations": [
+                  {
+                    "animationModel": {
+                      "autoreverses": false,
+                      "repeatDuration": 0,
+                      "timeOffset": 0,
+                      "fillMode": {
+                        "rawValue": "forwards"
+                      },
+                      "isRemovedOnCompletion": false,
+                      "fromValue": {
+                        "type": "float",
+                        "value": 0
+                      },
+                      "speed": 1,
+                      "isAdditive": false,
+                      "duration": 3,
+                      "repeatCount": 0,
+                      "isCumulative": false,
+                      "toValue": {
+                        "value": 1,
+                        "type": "int"
+                      },
+                      "keyPath": "transform.scale.xy",
+                      "beginTime": 0
+                    },
+                    "class": "CABasicAnimation"
+                  },
+                  {
+                    "class": "CAKeyframeAnimation",
+                    "animationModel": {
+                      "repeatCount": 0,
+                      "repeatDuration": 0,
+                      "keyPath": "opacity",
+                      "fillMode": {
+                        "rawValue": "forwards"
+                      },
+                      "beginTime": 0,
+                      "isCumulative": false,
+                      "calculationMode": {
+                        "rawValue": "linear"
+                      },
+                      "autoreverses": false,
+                      "isRemovedOnCompletion": false,
+                      "keyTimes": [
+                        0,
+                        0.5,
+                        1
+                      ],
+                      "values": [
+                        {
+                          "type": "float",
+                          "value": 0.8
+                        },
+                        {
+                          "type": "float",
+                          "value": 0.4
+                        },
+                        {
+                          "type": "float",
+                          "value": 0
+                        }
+                      ],
+                      "isAdditive": false,
+                      "speed": 1,
+                      "timeOffset": 0,
+                      "duration": 3
+                    }
+                  }
+                ],
+                "timingFunction": "linear"
+              }
+            }
+          },
+          "backgroundColor": {
+            "code": "FF00FFFF"
+          },
+          "allowsEdgeAntialiasing": false,
+          "contentsFormat": {
+            "rawValue": "RGBA8"
+          },
+          "cornerRadius": 100,
+          "opacity": 0,
+          "allowsGroupOpacity": true
+        },
+        "class": "CALayer"
+      }
+    ],
+    "instanceCount": 3,
+    "contentsFormat": {
+      "rawValue": "RGBA8"
+    },
+    "allowsEdgeAntialiasing": false,
+    "instanceDelay": 1,
+    "position": [
+      196.5,
+      426
+    ],
+    "bounds": [
+      [
+        0,
+        0
+      ],
+      [
+        200,
+        200
+      ]
+    ],
+    "allowsGroupOpacity": true
+  }
+}
